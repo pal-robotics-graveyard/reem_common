@@ -1,0 +1,15 @@
+<stack>
+  <description brief="REEM robot description and REEM-specific messages">
+    URDF description of the robot kinematics and dynamics, 3D models of robot components, information required for
+    gazebo to simulate REEM, messages specific to REEM and machine specifications.
+  </description>
+  <author>Maintained by Adolfo Rodriguez Tsouroukdissian</author>
+  <license>Modified BSD, Creative Commons BY-NC-ND 3.0</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/reem_common</url>
+
+  <depend stack="common_msgs" />
+  <depend stack="robot_model" />
+  <depend stack="ros" />
+  <depend stack="ros_comm" />
+</stack>

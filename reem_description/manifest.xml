@@ -1,0 +1,12 @@
+<package>
+  <description brief="reem_description">
+    This package contains the description (mechanical, kinematic, visual, etc.) of the Reem robot.
+  </description>
+  <author>Adolfo Rodriguez Tsouroukdissian, Joan Oliver Poyatos, Pablo Garcia Martinez</author>
+  <license>Creative Commons BY-NC-ND 3.0</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/reem_description</url>
+
+  <depend package="convex_decomposition"/>
+  <depend package="ivcon"/>
+</package>

@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+<!--
+
+  Copyright (c) 2011, PAL Robotics, S.L.
+  All rights reserved.
+
+  This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
+  Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+-->
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+      xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+      xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+      xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!--Constant parameters-->
+  <xacro:property name="arm_reduction_high" value="100.0" />
+  <xacro:property name="arm_reduction_low"  value= "80.0" />
+  <xacro:property name="wrist_reduction"    value="336.0" />
+
+  <xacro:property name="arm_friction"    value="1.0" />
+  <xacro:property name="wrist_friction"  value="0.5" />
+
+  <xacro:property name="arm_damping"     value="0.0" />
+  <xacro:property name="wrist_damping"   value="0.0" />
+
+ <xacro:property name="arm_max_vel"      value="1.0" />
+ <xacro:property name="wrist_max_vel"    value="1.0" />
+
+  <!-- TODO: Implement shoulder and wrist transmission models -->
+  <!-- TODO: Update dynamic models -->
+
+  <!--File includes-->
+  <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
+  <include filename="$(find reem_description)/urdf/arm/arm.gazebo.xacro" />
+  <include filename="$(find reem_description)/urdf/arm/arm.transmission.xacro" />
+
+  <xacro:macro name="reem_arm" params="name side reflect">
+
+    <!--************************-->
+    <!--        ARM LINKS       -->
+    <!--************************-->
+    <link name="arm_${side}_1_link">
+      <inertial>
+        <origin xyz="0.00013 -0.01746 -0.10788" rpy="0 0 0"/>
+        <mass value="1.775" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_1_low.stl"/>
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_1_low.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+   <link name="arm_${side}_2_link">
+      <inertial>
+        <origin xyz="0.0181 -0.10023 -0.0053" rpy="0 0 0"/>
+        <mass value="1.575" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_2_low.stl"/>
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_2_low.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="arm_${side}_3_link">
+      <inertial>
+        <origin xyz="0.00172 ${reflect * 0.01644} ${reflect * 0.10561}" rpy="0 0 0"/>
+        <mass value="1.645" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_3_low.stl"/>
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_3_low.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="arm_${side}_4_link">
+      <inertial>
+        <origin xyz="-0.05593 ${-reflect * 0.01466} ${-reflect * 0.01020}" rpy="0 0 0"/>
+        <mass value="0.775" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_4_low.stl"/>
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_4_low.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="arm_${side}_5_link">
+      <inertial>
+        <origin xyz="-0.00232 0 ${reflect * 0.05825}" rpy="0 0 0"/>
+        <mass value="1.440" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_5_low.stl"/>
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/arm/arm_${side}_5_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="arm_${side}_6_link">
+      <inertial>
+        <origin xyz="0 -0.00656 0" rpy="0 0 0"/>
+        <mass value="0.250" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.0375" length="0.027"/>
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.0375" length="0.027"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="arm_${side}_7_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.001" /> <!-- NOTE: Dummy mass -->
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 ${0.0375 * reflect}" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.0135" length="0.02"/>
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${0.0375 * reflect}" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.0135" length="0.02"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!--************************-->
+    <!--        ARM JOINTS      -->
+    <!--************************-->
+
+    <joint name="arm_${side}_1_joint" type="revolute">
+      <parent link="torso_2_link" />
+      <child link="arm_${side}_1_link" />
+      <origin xyz="-0.01 -0.273 0" rpy="${(-165.0 * reflect) * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-45.0 * deg_to_rad}" upper="${180.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
+
+    <joint name="arm_${side}_2_joint" type="revolute">
+      <parent link="arm_${side}_1_link" />
+      <child link="arm_${side}_2_link" />
+      <origin xyz="0 0 ${0.2385 * reflect}" rpy="${-90.0 * reflect * deg_to_rad} ${-75.0 * reflect * deg_to_rad} ${90.0 * deg_to_rad}" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-30.0 * deg_to_rad}" upper="${105.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
+
+    <joint name="arm_${side}_3_joint" type="revolute">
+      <parent link="arm_${side}_2_link" />
+      <child link="arm_${side}_3_link" />
+      <origin xyz="0.02 -0.1065 0" rpy="${90.0 * reflect * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-120.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
+
+    <joint name="arm_${side}_4_joint" type="revolute">
+      <parent link="arm_${side}_3_link" />
+      <child link="arm_${side}_4_link" />
+      <origin xyz="0 -0.02 ${0.1235 * reflect}" rpy="0 ${90.0 * reflect * deg_to_rad} 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="0" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
+
+    <joint name="arm_${side}_5_joint" type="revolute">
+      <parent link="arm_${side}_4_link" />
+      <child link="arm_${side}_5_link" />
+      <origin xyz="-0.1065 0.02 0" rpy="0 ${-90.0 * reflect * deg_to_rad} 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-120.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
+      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
+    </joint>
+
+    <joint name="arm_${side}_6_joint" type="revolute">
+      <parent link="arm_${side}_5_link" />
+      <child link="arm_${side}_6_link" />
+      <origin xyz="0 0 ${0.133 * reflect}" rpy="${-90.0 * reflect * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-90.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
+      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
+    </joint>
+
+    <joint name="arm_${side}_7_joint" type="revolute">
+      <parent link="arm_${side}_6_link" />
+      <child link="arm_${side}_7_link" />
+      <origin xyz="0 0 0" rpy="${90.0 * reflect * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-120.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
+      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
+    </joint>
+
+    <!-- extensions -->
+    <xacro:reem_arm_gazebo side="${side}" number="1" color="reem/DarkGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="2" color="reem/DarkGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="3" color="reem/DarkGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="4" color="reem/DarkGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="5" color="reem/LightGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="6" color="reem/LightGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="7" color="reem/LightGrey" />
+
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="1" reduction="${arm_reduction_high}" />
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="2" reduction="${arm_reduction_high}" />
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="3" reduction="${arm_reduction_low}" />
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="4" reduction="${arm_reduction_low}" />
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="5" reduction="${wrist_reduction}" />
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="6" reduction="${wrist_reduction}" />
+    <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="7" reduction="${wrist_reduction}" />
+
+  </xacro:macro>
+
+</robot>

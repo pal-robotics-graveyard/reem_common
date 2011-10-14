@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+
+  Copyright (c) 2011, PAL Robotics, S.L.
+  All rights reserved.
+
+  This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
+  Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+-->
+<robot  xmlns:xacro="http://ros.org/wiki/xacro"
+        xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+
+  <xacro:macro name="reem_wheel_gazebo" params="side">
+    <gazebo reference="wheel_${side}_link">
+      <material>reem/DarkGrey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="reem_caster_gazebo" params="side">
+    <gazebo reference="caster_${side}_1_link">
+      <material>reem/LightGrey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    <gazebo reference="caster_${side}_2_link">
+      <material>reem/DarkGrey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="reem_base_gazebo">
+    <gazebo reference="base_link">
+      <material>reem/LightGrey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="reem_base_controllers">
+		<gazebo>
+		  <controller:differential_position2d name="controller1">
+		    <update>100</update>
+		    <leftJoint>wheel_right_joint</leftJoint>
+		    <rightJoint>wheel_left_joint</rightJoint>
+		    <wheelSeparation>${dist_between_wheels}</wheelSeparation>
+		    <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
+		    <!-- <torque>5</torque> -->
+		    <!--TODO: Remove?-->
+		    <torque>15</torque>
+		    <interface:position name="position_iface_0"/>
+		  </controller:differential_position2d>
+
+		  <controller:gazebo_ros_p3d name="p3d_base_controller" plugin="libgazebo_ros_p3d.so">
+		    <alwaysOn>true</alwaysOn>
+		    <updateRate>100.0</updateRate>
+		    <bodyName>base_link</bodyName>
+		    <topicName>base_pose_ground_truth</topicName>
+		    <gaussianNoise>0.01</gaussianNoise>
+		    <frameName>odom</frameName>
+		    <xyzOffsets>0 0 0</xyzOffsets>
+		    <rpyOffsets>0 0 0</rpyOffsets>
+		    <interface:position name="p3d_base_position"/>
+		  </controller:gazebo_ros_p3d>
+		</gazebo>
+  </xacro:macro>
+
+</robot>
