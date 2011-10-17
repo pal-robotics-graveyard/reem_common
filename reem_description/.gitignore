@@ -1,0 +1,11 @@
+build/
+meshes/arm/convex
+meshes/arm/iv
+meshes/base/convex
+meshes/base/iv
+meshes/hand/convex
+meshes/hand/iv
+meshes/head/convex
+meshes/head/iv
+meshes/torso/convex
+meshes/torso/iv
