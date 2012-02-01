@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (c) 2011, PAL Robotics, S.L.
+  All rights reserved.
+
+  This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
+  Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+-->
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="range_reem_gazebo" params="name ros_topic update_rate maxRange minRange fov">
+    <gazebo reference="${name}_link">
+      <sensor:ir name="${name}">
+	<rayCount>5</rayCount>
+	<!--verticalRayCount>3</verticalRayCount-->
+	<!--irCount>10</irCount-->
+	<rangeCount>1</rangeCount>
+
+        <origin>0.0 0.0 0.0</origin>
+        <displayRays>false</displayRays>
+
+	<minAngle>${-fov/2}</minAngle>
+        <maxAngle>${fov/2}</maxAngle>
+	<verticalMinAngle>${-fov/2}</verticalMinAngle>
+        <verticalMaxAngle>${fov/2}</verticalMaxAngle>
+
+        <minRange>${minRange}</minRange>
+        <maxRange>${maxRange}</maxRange>
+        <resRange>0.01</resRange>
+
+        <updateRate>${update_rate}</updateRate>
+
+        <controller:gazebo_ros_ir name="gazebo_ros_${name}_controller" plugin="libgazebo_ros_ir.so">
+          <gaussianNoise>0.0005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>${update_rate}</updateRate>
+          <topicName>${ros_topic}</topicName>
+          <frameName>${name}_link</frameName>
+  	  <maxRange>${maxRange}</maxRange>
+  	  <minRange>${minRange}</minRange>
+  	  <fov>${fov}</fov>
+          <interface:irarray name="gazebo_ros_${name}_iface" />
+        </controller:gazebo_ros_ir>
+      </sensor:ir>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
