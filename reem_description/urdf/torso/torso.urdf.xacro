@@ -27,8 +27,8 @@
     <!--************************-->
     <link name="${name}_1_link">
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <mass value="1.0" />
+        <origin xyz="-0.00299 0.00501 -0.07336" rpy="0 0 0" />
+        <mass value="6.653" />
         <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
       </inertial>
       <visual>
@@ -66,8 +66,8 @@
     <!--************************-->
     <link name="${name}_2_link">
       <inertial>
-        <origin />
-        <mass value="1.0" />
+        <origin xyz="-0.01241 -0.16263 0.00011" rpy="0 0 0"/>
+        <mass value="11.717" />
         <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
       </inertial>
       <visual>

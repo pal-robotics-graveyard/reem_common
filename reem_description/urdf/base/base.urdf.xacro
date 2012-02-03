@@ -172,8 +172,8 @@
 
     <link name="${name}_link">
       <inertial>
-        <origin xyz="-0.3 0 0.2" rpy="0 0 0" /> <!-- assuming d=0.6, w=0.5, h=0.4 -->
-        <mass value="90.0" />
+        <origin xyz="-0.14527 -0.00003 0.24721" rpy="0 0 0" /> <!-- assuming d=0.6, w=0.5, h=0.4 -->
+        <mass value="63.58850" />
         <inertia ixx="3.42"  ixy="0"  ixz="0" iyy="4.33" iyz="0" izz="5.08" /> <!-- assuming d=0.6, w=0.5, h=0.4 -->
       </inertial>
       <visual>

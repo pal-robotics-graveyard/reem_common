@@ -42,8 +42,8 @@
     <!--************************-->
     <link name="arm_${side}_1_link">
       <inertial>
-        <origin xyz="0.00013 -0.01746 -0.10788" rpy="0 0 0"/>
-        <mass value="1.775" />
+        <origin xyz="${reflect*0.000816} -0.00041 ${reflect*0.17187}" rpy="0 0 0"/>
+        <mass value="1.08342" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -63,8 +63,8 @@
 
    <link name="arm_${side}_2_link">
       <inertial>
-        <origin xyz="0.0181 -0.10023 -0.0053" rpy="0 0 0"/>
-        <mass value="1.575" />
+        <origin xyz="0.00454 -0.01220 -0.00823" rpy="0 0 0"/>
+        <mass value="1.65272" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -84,8 +84,8 @@
 
     <link name="arm_${side}_3_link">
       <inertial>
-        <origin xyz="0.00172 ${reflect * 0.01644} ${reflect * 0.10561}" rpy="0 0 0"/>
-        <mass value="1.645" />
+        <origin xyz="0.00506 ${reflect * -0.00198} ${reflect * -0.00231}" rpy="0 0 0"/>
+        <mass value="1.60923" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -105,8 +105,8 @@
 
     <link name="arm_${side}_4_link">
       <inertial>
-        <origin xyz="-0.05593 ${-reflect * 0.01466} ${-reflect * 0.01020}" rpy="0 0 0"/>
-        <mass value="0.775" />
+        <origin xyz="-0.01128 ${-reflect * 0.00406} ${-reflect * 0.00837}" rpy="0 0 0"/>
+        <mass value="1.61314" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -126,8 +126,8 @@
 
     <link name="arm_${side}_5_link">
       <inertial>
-        <origin xyz="-0.00232 0 ${reflect * 0.05825}" rpy="0 0 0"/>
-        <mass value="1.440" />
+        <origin xyz="-0.00051 -0.00003 ${reflect * -0.06628}" rpy="0 0 0"/>
+        <mass value="2.26358" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -147,8 +147,8 @@
 
     <link name="arm_${side}_6_link">
       <inertial>
-        <origin xyz="0 -0.00656 0" rpy="0 0 0"/>
-        <mass value="0.250" />
+        <origin xyz="-0.00005 -0.01216 0.0" rpy="0 0 0"/>
+        <mass value="0.35648" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -168,8 +168,8 @@
 
     <link name="arm_${side}_7_link">
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="0.001" /> <!-- NOTE: Dummy mass -->
+        <origin xyz="0.001880317  -0.005168045 -0.109404509" rpy="0 0 0"/>
+        <mass value="0.152461831" /> <!-- NOTE: Dummy mass -->
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
