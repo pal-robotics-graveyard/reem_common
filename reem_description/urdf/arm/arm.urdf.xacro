@@ -169,7 +169,7 @@
     <link name="arm_${side}_7_link">
       <inertial>
         <origin xyz="0.001880317  -0.005168045 -0.109404509" rpy="0 0 0"/>
-        <mass value="0.152461831" /> <!-- NOTE: Dummy mass -->
+        <mass value="0.152461831" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
