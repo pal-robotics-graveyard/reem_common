@@ -225,12 +225,12 @@
 
 
    <!-- base laser -->
-    <xacro:sick_laser_reem name="${name}_laser" parent="${name}" ros_topic="LAS_00" update_rate="50" min_angle="-60" max_angle="60" >
+    <xacro:sick_laser_reem name="${name}_laser" parent="${name}" ros_topic="/LMS1xx/LAS_00" update_rate="50" min_angle="-135" max_angle="135" >
       <origin xyz="${base_laser_x} ${base_laser_y} ${base_laser_z}" rpy="${180.0 * deg_to_rad} 0 0" />
     </xacro:sick_laser_reem>
 
     <!-- torso laser -->
-    <xacro:hokuyo_laser_reem name="${name}_torso_laser" parent="${name}" ros_topic="LAS_01" update_rate="10" min_angle="-135" max_angle="135" >
+    <xacro:hokuyo_laser_reem name="${name}_torso_laser" parent="${name}" ros_topic="/hokuyo/LAS_01" update_rate="10" min_angle="-135" max_angle="135" >
       <origin xyz="${torso_laser_x} ${torso_laser_y} ${torso_laser_z}" rpy="-0.07 ${65 * deg_to_rad} 0 " />
     </xacro:hokuyo_laser_reem>
 
