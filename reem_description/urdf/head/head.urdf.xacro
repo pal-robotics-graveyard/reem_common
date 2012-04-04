@@ -95,6 +95,11 @@
       <limit lower="${-15.0 * deg_to_rad}" upper="${45.0 * deg_to_rad}" effort="0.0" velocity="${head_max_vel}" />
       <dynamics damping="${head_damping}" friction="${head_friction}"/> <!--TODO: Tune-->
     </joint>
+    
+       <!-- Head Sonar -->
+   <xacro:range_reem name="head_sonar_20" parent="${name}" ros_topic="sonar_torso" update_rate="5" maxRange="1.5" minRange="0.0" fov="0.3491" >
+      <origin xyz="0.066 -0.195 0.0" rpy="1.57 0.0 0.0" />
+   </xacro:range_reem> 
 
     <!-- extensions -->
     <xacro:reem_head_2_gazebo name="${name}" />
