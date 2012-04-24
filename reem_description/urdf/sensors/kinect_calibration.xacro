@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot>
+
+  <property name="reem_calib_cam_x" value="0.056" />
+  <property name="reem_calib_cam_y" value="-0.252" />
+  <property name="reem_calib_cam_z" value="0.0" />
+  <property name="reem_calib_cam_rr" value="1.570795" />
+  <property name="reem_calib_cam_rp" value="0.0" />
+  <property name="reem_calib_cam_ry" value="0.34906" />
+  <property name="reem_camera_parent_name" value="head_2_link" />
+
+</robot>
