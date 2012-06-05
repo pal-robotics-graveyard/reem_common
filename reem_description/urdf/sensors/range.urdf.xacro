@@ -16,13 +16,15 @@
 
   <include filename="$(find reem_description)/urdf/sensors/range.gazebo.xacro" />
 
-  <xacro:macro name="range_reem" params="name parent *origin ros_topic update_rate maxRange minRange fov">
+  <xacro:macro name="range_reem" params="name parent *origin ros_topic update_rate maxRange minRange fov radiation">
+    
     <joint name="${name}_joint" type="fixed">
       <axis xyz="0 0 0" rpy="0 0 0"/>
       <insert_block name="origin" />
       <parent link="${parent}_link"/>
       <child link="${name}_link"/>
     </joint>
+    
     <link name="${name}_link" type="irarray">
       <inertial>
         <mass value="0.001" />
@@ -32,6 +34,6 @@
     </link>
 
     <!-- gazebo extensions -->
-    <xacro:range_reem_gazebo name="${name}" ros_topic="${ros_topic}" update_rate="${update_rate}" maxRange="${maxRange}" minRange="${minRange}" fov="${fov}"/>
+    <xacro:range_reem_gazebo name="${name}" ros_topic="${ros_topic}" update_rate="${update_rate}" maxRange="${maxRange}" minRange="${minRange}" fov="${fov}" radiation="${radiation}"/>
   </xacro:macro>
 </robot>

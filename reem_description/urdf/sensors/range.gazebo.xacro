@@ -14,20 +14,20 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="range_reem_gazebo" params="name ros_topic update_rate maxRange minRange fov">
+  <xacro:macro name="range_reem_gazebo" params="name ros_topic update_rate maxRange minRange fov radiation" >
+
     <gazebo reference="${name}_link">
-      <sensor:ir name="${name}">
-	<rayCount>5</rayCount>
-	<!--verticalRayCount>3</verticalRayCount-->
-	<!--irCount>10</irCount-->
-	<rangeCount>1</rangeCount>
+      <sensor:ray name="${name}">
+        <!-- displayRays>fan</displayRays -->
 
-        <origin>0.0 0.0 0.0</origin>
-        <displayRays>false</displayRays>
+        <rayCount>5</rayCount>
+        <rangeCount>5</rangeCount>
+        <verticalRayCount>5</verticalRayCount>
+        <verticalRangeCount>5</verticalRangeCount>
 
-	<minAngle>${-fov/2}</minAngle>
+        <minAngle>-${fov/2}</minAngle>
+        <verticalMinAngle>-${fov/2}</verticalMinAngle>
         <maxAngle>${fov/2}</maxAngle>
-	<verticalMinAngle>${-fov/2}</verticalMinAngle>
         <verticalMaxAngle>${fov/2}</verticalMaxAngle>
 
         <minRange>${minRange}</minRange>
@@ -36,19 +36,17 @@
 
         <updateRate>${update_rate}</updateRate>
 
-        <controller:gazebo_ros_ir name="gazebo_ros_${name}_controller" plugin="libgazebo_ros_ir.so">
-          <gaussianNoise>0.0005</gaussianNoise>
+        <controller:gazebo_ros_sonar name="gazebo_ros_${name}_controller" plugin="libgazebo_ros_sonar.so">
+          <gaussianNoise>0.005</gaussianNoise>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
           <topicName>${ros_topic}</topicName>
-          <frameName>${name}_link</frameName>
-  	  <maxRange>${maxRange}</maxRange>
-  	  <minRange>${minRange}</minRange>
-  	  <fov>${fov}</fov>
-          <interface:irarray name="gazebo_ros_${name}_iface" />
-        </controller:gazebo_ros_ir>
-      </sensor:ir>
-    </gazebo>
+          <frameId>${name}_link</frameId>
+          <radiation>${radiation}</radiation>
+          <fov>${fov}</fov>
+        </controller:gazebo_ros_sonar>
+      </sensor:ray>
+    </gazebo>  
   </xacro:macro>
 
 </robot>

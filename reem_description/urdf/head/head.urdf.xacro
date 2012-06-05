@@ -97,8 +97,8 @@
     </joint>
     
        <!-- Head Sonar -->
-   <xacro:range_reem name="head_sonar_20" parent="${name}" ros_topic="sonar_torso" update_rate="5" maxRange="1.5" minRange="0.0" fov="0.3491" >
-      <origin xyz="0.066 -0.195 0.0" rpy="1.57 0.0 0.0" />
+   <xacro:range_reem name="head_sonar_20" parent="${name}" ros_topic="sonar_torso" update_rate="5" maxRange="1.5" minRange="0.0" fov="0.3491" radiation="ultrasound">
+      <origin xyz="0.086 -0.195 0.0" rpy="1.57 0.0 0.0" />
    </xacro:range_reem> 
 
     <!-- extensions -->
