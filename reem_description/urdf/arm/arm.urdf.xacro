@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-  Copyright (c) 2011, PAL Robotics, S.L.
+  Copyright (c) 2011-2012, PAL Robotics, S.L.
   All rights reserved.
 
   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
@@ -9,20 +9,20 @@
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
 <robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-      xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-      xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-      xmlns:xacro="http://ros.org/wiki/xacro">
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!--Constant parameters-->
   <xacro:property name="arm_reduction_high" value="100.0" />
   <xacro:property name="arm_reduction_low"  value= "80.0" />
   <xacro:property name="wrist_reduction"    value="336.0" />
 
-  <xacro:property name="arm_friction"    value="1.0" />
-  <xacro:property name="wrist_friction"  value="0.5" />
+  <xacro:property name="arm_friction"    value="1.0" /> <!--TODO: Tune-->
+  <xacro:property name="wrist_friction"  value="0.5" /> <!--TODO: Tune-->
 
-  <xacro:property name="arm_damping"     value="0.0" />
-  <xacro:property name="wrist_damping"   value="0.0" />
+  <xacro:property name="arm_damping"     value="1.0" /> <!--TODO: Tune-->
+  <xacro:property name="wrist_damping"   value="1.0" /> <!--TODO: Tune-->
 
  <xacro:property name="arm_max_vel"      value="1.0" />
  <xacro:property name="wrist_max_vel"    value="1.0" />
@@ -38,136 +38,199 @@
   <xacro:macro name="reem_arm" params="name side reflect">
 
     <!--************************-->
-    <!--        ARM LINKS       -->
+    <!--        SHOULDER        -->
     <!--************************-->
     <link name="arm_${side}_1_link">
       <inertial>
-        <origin xyz="${reflect*0.000816} -0.00041 ${reflect*0.17187}" rpy="0 0 0"/>
-        <mass value="1.08342" />
+        <origin xyz="${reflect*0.0006} -0.0005 ${reflect*0.20739}" rpy="0 0 0"/>
+        <mass value="2.148" />
+        <!-- NOTE: Assuming cylinder with r=0.05, h=0.05 roughly around second motor -->
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+<!--         <inertia ixx="0.0026850"  ixy="0"  ixz="0" iyy="0.0017900" iyz="0" izz="0.0017900" /> -->
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_1_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_1.dae" scale="1 1 ${-1*reflect}"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_1_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_1_collision.stl" scale="1 1 ${-1*reflect}"/>
         </geometry>
       </collision>
     </link>
+
+    <joint name="arm_${side}_1_joint" type="revolute">
+      <parent link="torso_2_link" />
+      <child link="arm_${side}_1_link" />
+      <origin xyz="-0.01 -0.273 0" rpy="${(-165.0 * reflect) * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-45.0 * deg_to_rad}" upper="${180.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
 
    <link name="arm_${side}_2_link">
       <inertial>
-        <origin xyz="0.00454 -0.01220 -0.00823" rpy="0 0 0"/>
-        <mass value="1.65272" />
+        <origin xyz="0.0183 -0.09275 -0.00478" rpy="0 0 0"/>
+        <mass value="1.610" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_2_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_2.dae" scale="1 1 ${-1*reflect}"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_2_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_2_collision.stl" scale="1 1 ${-1*reflect}"/>
         </geometry>
       </collision>
     </link>
+
+    <joint name="arm_${side}_2_joint" type="revolute">
+      <parent link="arm_${side}_1_link" />
+      <child link="arm_${side}_2_link" />
+      <origin xyz="0 0 ${0.2385 * reflect}" rpy="${-90.0 * reflect * deg_to_rad} ${-75.0 * reflect * deg_to_rad} ${90.0 * deg_to_rad}" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-15.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
 
     <link name="arm_${side}_3_link">
       <inertial>
-        <origin xyz="0.00506 ${reflect * -0.00198} ${reflect * -0.00231}" rpy="0 0 0"/>
-        <mass value="1.60923" />
+        <origin xyz="0.00045 ${reflect * -0.01547} ${reflect * -0.07654}" rpy="0 0 0"/>
+        <mass value="1.656" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_3_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_3.dae" scale="1 1 ${-1*reflect}"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_3_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_3_collision.stl" scale="1 1 ${-1*reflect}"/>
         </geometry>
       </collision>
     </link>
 
+    <joint name="arm_${side}_3_joint" type="revolute">
+      <parent link="arm_${side}_2_link" />
+      <child link="arm_${side}_3_link" />
+      <origin xyz="0.02 -0.142 0" rpy="${90.0 * reflect * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-135.0 * deg_to_rad}" upper="${157.5.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
+
+    <!--************************-->
+    <!--        ELBOW           -->
+    <!--************************-->
     <link name="arm_${side}_4_link">
       <inertial>
-        <origin xyz="-0.01128 ${-reflect * 0.00406} ${-reflect * 0.00837}" rpy="0 0 0"/>
-        <mass value="1.61314" />
+        <origin xyz="-0.06424 ${-reflect * 0.01712} ${-reflect * 0.00666}" rpy="0 0 0"/>
+        <mass value="1.013" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_4_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_4.dae" scale="1 1 ${-1*reflect}"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_4_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_4_collision.stl" scale="1 1 ${-1*reflect}"/>
         </geometry>
       </collision>
     </link>
 
+    <joint name="arm_${side}_4_joint" type="revolute">
+      <parent link="arm_${side}_3_link" />
+      <child link="arm_${side}_4_link" />
+      <origin xyz="0 -0.02 ${0.088 * reflect}" rpy="0 ${90.0 * reflect * deg_to_rad} 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="0" upper="${130.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
+    </joint>
+
+    <!--************************-->
+    <!--        WRIST           -->
+    <!--************************-->
     <link name="arm_${side}_5_link">
       <inertial>
-        <origin xyz="-0.00051 -0.00003 ${reflect * -0.06628}" rpy="0 0 0"/>
-        <mass value="2.26358" />
+        <origin xyz="-0.00045 -0.00009 ${reflect * -0.08726}" rpy="0 0 0"/>
+        <mass value="1.858" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_5_low.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_5.dae" scale="1 1 ${-1*reflect}"/>
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/arm/arm_${side}_5_collision.stl"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_5_collision.stl" scale="1 1 ${-1*reflect}"/>
         </geometry>
       </collision>
     </link>
+
+    <joint name="arm_${side}_5_joint" type="revolute">
+      <parent link="arm_${side}_4_link" />
+      <child link="arm_${side}_5_link" />
+      <origin xyz="-0.088 0.02 0" rpy="0 ${-90.0 * reflect * deg_to_rad} 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-120.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
+      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
+    </joint>
 
     <link name="arm_${side}_6_link">
       <inertial>
-        <origin xyz="-0.00005 -0.01216 0.0" rpy="0 0 0"/>
-        <mass value="0.35648" />
+        <origin xyz="-0.0002 -0.01155 0.00002" rpy="0 0 0"/>
+        <mass value="0.255" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="0.0375" length="0.027"/>
+          <mesh filename="package://reem_description/meshes/arm/arm_6.dae" scale="1 1 ${-1*reflect}"/>
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="0.0375" length="0.027"/>
+          <cylinder radius="0.04" length="0.0385"/>
         </geometry>
       </collision>
     </link>
 
+    <joint name="arm_${side}_6_joint" type="revolute">
+      <parent link="arm_${side}_5_link" />
+      <child link="arm_${side}_6_link" />
+      <origin xyz="0 0 ${0.15 * reflect}" rpy="${-90.0 * reflect * deg_to_rad} 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${-90.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
+      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
+    </joint>
+
     <link name="arm_${side}_7_link">
       <inertial>
+        <!--TODO: Verify these inertial parameters-->
         <origin xyz="0.001880317  -0.005168045 -0.109404509" rpy="0 0 0"/>
         <mass value="0.152461831" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
@@ -187,64 +250,6 @@
       </collision>
     </link>
 
-    <!--************************-->
-    <!--        ARM JOINTS      -->
-    <!--************************-->
-
-    <joint name="arm_${side}_1_joint" type="revolute">
-      <parent link="torso_2_link" />
-      <child link="arm_${side}_1_link" />
-      <origin xyz="-0.01 -0.273 0" rpy="${(-165.0 * reflect) * deg_to_rad} 0 0" />
-      <axis xyz="0 0 1" />
-      <limit lower="${-45.0 * deg_to_rad}" upper="${180.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
-      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
-    </joint>
-
-    <joint name="arm_${side}_2_joint" type="revolute">
-      <parent link="arm_${side}_1_link" />
-      <child link="arm_${side}_2_link" />
-      <origin xyz="0 0 ${0.2385 * reflect}" rpy="${-90.0 * reflect * deg_to_rad} ${-75.0 * reflect * deg_to_rad} ${90.0 * deg_to_rad}" />
-      <axis xyz="0 0 1" />
-      <limit lower="${-30.0 * deg_to_rad}" upper="${105.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
-      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
-    </joint>
-
-    <joint name="arm_${side}_3_joint" type="revolute">
-      <parent link="arm_${side}_2_link" />
-      <child link="arm_${side}_3_link" />
-      <origin xyz="0.02 -0.1065 0" rpy="${90.0 * reflect * deg_to_rad} 0 0" />
-      <axis xyz="0 0 1" />
-      <limit lower="${-120.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
-      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
-    </joint>
-
-    <joint name="arm_${side}_4_joint" type="revolute">
-      <parent link="arm_${side}_3_link" />
-      <child link="arm_${side}_4_link" />
-      <origin xyz="0 -0.02 ${0.1235 * reflect}" rpy="0 ${90.0 * reflect * deg_to_rad} 0" />
-      <axis xyz="0 0 1" />
-      <limit lower="0" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
-      <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
-    </joint>
-
-    <joint name="arm_${side}_5_joint" type="revolute">
-      <parent link="arm_${side}_4_link" />
-      <child link="arm_${side}_5_link" />
-      <origin xyz="-0.1065 0.02 0" rpy="0 ${-90.0 * reflect * deg_to_rad} 0" />
-      <axis xyz="0 0 1" />
-      <limit lower="${-120.0 * deg_to_rad}" upper="${120.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
-      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
-    </joint>
-
-    <joint name="arm_${side}_6_joint" type="revolute">
-      <parent link="arm_${side}_5_link" />
-      <child link="arm_${side}_6_link" />
-      <origin xyz="0 0 ${0.133 * reflect}" rpy="${-90.0 * reflect * deg_to_rad} 0 0" />
-      <axis xyz="0 0 1" />
-      <limit lower="${-90.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${wrist_max_vel}" />
-      <dynamics friction="${wrist_friction}" damping="${wrist_damping}"/>
-    </joint>
-
     <joint name="arm_${side}_7_joint" type="revolute">
       <parent link="arm_${side}_6_link" />
       <child link="arm_${side}_7_link" />
@@ -255,13 +260,13 @@
     </joint>
 
     <!-- extensions -->
-    <xacro:reem_arm_gazebo side="${side}" number="1" color="reem/DarkGrey" />
-    <xacro:reem_arm_gazebo side="${side}" number="2" color="reem/DarkGrey" />
-    <xacro:reem_arm_gazebo side="${side}" number="3" color="reem/DarkGrey" />
-    <xacro:reem_arm_gazebo side="${side}" number="4" color="reem/DarkGrey" />
-    <xacro:reem_arm_gazebo side="${side}" number="5" color="reem/LightGrey" />
-    <xacro:reem_arm_gazebo side="${side}" number="6" color="reem/LightGrey" />
-    <xacro:reem_arm_gazebo side="${side}" number="7" color="reem/LightGrey" />
+    <xacro:reem_arm_gazebo side="${side}" number="1" />
+    <xacro:reem_arm_gazebo side="${side}" number="2" />
+    <xacro:reem_arm_gazebo side="${side}" number="3" />
+    <xacro:reem_arm_gazebo side="${side}" number="4" />
+    <xacro:reem_arm_gazebo side="${side}" number="5" />
+    <xacro:reem_arm_gazebo side="${side}" number="6" />
+    <xacro:reem_arm_gazebo side="${side}" number="7" />
 
     <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="1" reduction="${arm_reduction_high}" />
     <xacro:reem_arm_simple_transmission name="${name}" side="${side}" number="2" reduction="${arm_reduction_high}" />

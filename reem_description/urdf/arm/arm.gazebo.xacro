@@ -13,9 +13,8 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="reem_arm_gazebo" params="side number color ">
+  <xacro:macro name="reem_arm_gazebo" params="side number">
     <gazebo reference="arm_${side}_${number}_link">
-      <material>${color}</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
   </xacro:macro>
