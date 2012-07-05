@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-  Copyright (c) 2011, PAL Robotics, S.L.
+  Copyright (c) 2011-2012, PAL Robotics, S.L.
   All rights reserved.
 
   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
@@ -9,39 +9,40 @@
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
 <robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-      xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-      xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-      xmlns:xacro="http://ros.org/wiki/xacro">
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
 
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
   <include filename="$(find reem_description)/urdf/head/head.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/head/head.transmission.xacro" />
 
-  <xacro:property name="head_friction" value="3.0" />
-  <xacro:property name="head_damping"  value="0.1" />
+  <xacro:property name="head_friction" value="3.0" /> <!--TODO: Tune-->
+  <xacro:property name="head_damping"  value="1.0" /> <!--TODO: Tune-->
   <xacro:property name="head_max_vel"  value="1.0" />
 
+  <!--************************-->
+  <!--     HEAD_1 (PAN)       -->
+  <!--************************-->
   <xacro:macro name="reem_head_1" params="name parent">
-    <!--************************-->
-    <!--     HEAD_1 (PAN)       -->
-    <!--************************-->
     <link name="${name}_link">
       <inertial>
         <origin xyz="0.01741 0.00466 -0.00434" rpy="0 0 0" />
         <mass value="0.98547" />
-        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+        <!-- NOTE: Assuming cylinder with r=0.06, h=0.08 -->
+        <inertia ixx="0.0014125"  ixy="0"  ixz="0" iyy="0.0014125" iyz="0" izz="0.0017738" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/head/head_1_low.stl" />
+          <mesh filename="package://reem_description/meshes/head/head_1.dae"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
-        <origin xyz="-0.0 0 -0.05" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="0.06" length="0.08" />
+          <mesh filename="package://reem_description/meshes/head/head_1_collision.stl"/>
         </geometry>
       </collision>
     </link>
@@ -52,7 +53,7 @@
       <origin xyz="-0.024 -0.412 0" rpy="${90.0 * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
       <limit lower="${-75.0 * deg_to_rad}" upper="${75.0 * deg_to_rad}" effort="0.0" velocity="${head_max_vel}" />
-      <dynamics damping="${head_damping}" friction="${head_friction}"/> <!--TODO: Tune-->
+      <dynamics damping="${head_damping}" friction="${head_friction}"/>
     </joint>
 
     <!-- extensions -->
@@ -61,29 +62,29 @@
 
   </xacro:macro>
 
+  <!--************************-->
+  <!--      HEAD_2 (TILT)     -->
+  <!--************************-->
   <xacro:macro name="reem_head_2" params="name parent">
-    <!--************************-->
-    <!--      HEAD_2 (TILT)     -->
-    <!--************************-->
     <link name="${name}_link">
       <inertial>
-        <origin xyz="-0.04431 -0.13008 0.000011" rpy="0 0 0" />
+        <origin xyz="-0.04431 -0.13008 0.00011" rpy="0 0 0" />
         <mass value="1.20862" />
-        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+        <!-- NOTE: Assuming box with d=0.28433, w=0.20302, h=0.26741 -->
+        <inertia ixx="0.011353"  ixy="0"  ixz="0" iyy="0.012294" iyz="0" izz="0.015345" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://reem_description/meshes/head/head_2_low.stl" />
+          <mesh filename="package://reem_description/meshes/head/head_2.dae"/>
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/head/head_2_collision.stl" />
+          <mesh filename="package://reem_description/meshes/head/head_2_collision.stl"/>
         </geometry>
-        <material name="LightGrey" />
       </collision>
     </link>
 
@@ -93,19 +94,19 @@
       <origin xyz="0.0445 0 0" rpy="${-90.0 * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
       <limit lower="${-15.0 * deg_to_rad}" upper="${45.0 * deg_to_rad}" effort="0.0" velocity="${head_max_vel}" />
-      <dynamics damping="${head_damping}" friction="${head_friction}"/> <!--TODO: Tune-->
+      <dynamics damping="${head_damping}" friction="${head_friction}"/>
     </joint>
-    
-       <!-- Head Sonar -->
-   <xacro:range_reem name="head_sonar_20" parent="${name}" ros_topic="sonar_torso" update_rate="5" maxRange="1.5" minRange="0.0" fov="0.3491" radiation="ultrasound">
+
+    <!-- Head Sonar -->
+    <xacro:range_reem name="head_sonar_20" parent="${name}" ros_topic="sonar_torso" update_rate="5" maxRange="1.5" minRange="0.0" fov="0.3491" radiation="ultrasound">
       <origin xyz="0.086 -0.195 0.0" rpy="1.57 0.0 0.0" />
-   </xacro:range_reem> 
+    </xacro:range_reem> 
 
     <!-- extensions -->
     <xacro:reem_head_2_gazebo name="${name}" />
     <xacro:reem_head_2_transmission name="${name}" />
 
-    </xacro:macro>
+  </xacro:macro>
 
   <xacro:macro name="reem_head" params="name parent">
     <xacro:reem_head_1 name="${name}_1" parent="${parent}" />
