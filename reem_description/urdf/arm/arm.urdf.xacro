@@ -132,6 +132,29 @@
       <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
     </joint>
 
+    <!-- Dummy visualization-only link -->
+    <link name="arm_${side}_3_internal_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.045" length="0.01"/>
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.045" length="0.01"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_${side}_3_internal_joint" type="fixed">
+      <parent link="arm_${side}_3_link" />
+      <child link="arm_${side}_3_internal_link" />
+      <origin xyz="0 0 ${-reflect * 0.025}" rpy="0 0 0" />
+    </joint>
+
     <!--************************-->
     <!--        ELBOW           -->
     <!--************************-->
