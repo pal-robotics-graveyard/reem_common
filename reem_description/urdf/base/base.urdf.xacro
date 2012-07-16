@@ -26,7 +26,7 @@
   <!--wheel characteristics-->
   <property name="dist_between_wheels" value="0.492" />
   <property name="wheel_radius" value="0.125" />
-  <property name="wheel_width" value="0.087" />
+  <property name="wheel_width" value="0.082" />
 
  <!--caster characteristics-->
   <property name="dist_between_casters" value="0.300" />
