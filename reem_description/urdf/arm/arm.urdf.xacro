@@ -149,6 +149,10 @@
       </collision>
     </link>
 
+    <gazebo reference="arm_${side}_3_internal_link">
+      <material>reem/DarkGrey</material>
+    </gazebo>
+
     <joint name="arm_${side}_3_internal_joint" type="fixed">
       <parent link="arm_${side}_3_link" />
       <child link="arm_${side}_3_internal_link" />
