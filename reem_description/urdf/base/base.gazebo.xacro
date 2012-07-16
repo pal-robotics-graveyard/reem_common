@@ -33,7 +33,6 @@
 
   <xacro:macro name="reem_base_gazebo">
     <gazebo reference="base_link">
-      <material>reem/LightGrey</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
   </xacro:macro>

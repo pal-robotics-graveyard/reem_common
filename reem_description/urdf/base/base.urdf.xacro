@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!--
 
-  Copyright (c) 2011, PAL Robotics, S.L.
+  Copyright (c) 2011-2012, PAL Robotics, S.L.
   All rights reserved.
 
   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
   To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
-<robot  xmlns:xacro="http://ros.org/wiki/xacro"
-        xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
   <include filename="$(find reem_description)/urdf/base/base.gazebo.xacro" />
@@ -24,15 +24,15 @@
   <include filename="$(find reem_description)/urdf/sensors/bumper.urdf.xacro" />
 
   <!--wheel characteristics-->
-  <property name="dist_between_wheels" value="0.489" />
-  <property name="wheel_radius" value="0.1075" />
-  <property name="wheel_width" value="0.082" />
+  <property name="dist_between_wheels" value="0.492" />
+  <property name="wheel_radius" value="0.125" />
+  <property name="wheel_width" value="0.087" />
 
  <!--caster characteristics-->
-  <property name="dist_between_casters" value="0.350" />
-  <property name="caster_radius"        value="0.050" />
-  <property name="caster_width"         value="0.032" />
-  <property name="caster_trailing_dist" value="0.033" />
+  <property name="dist_between_casters" value="0.300" />
+  <property name="caster_radius"        value="0.0625" />
+  <property name="caster_width"         value="0.037" />
+  <property name="caster_trailing_dist" value="0.038" />
 
   <xacro:macro name="reem_wheel" params="side reflect" parent="base_link">
 
@@ -82,21 +82,21 @@
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.1" />
-        <inertia  ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-                  iyy="0.015218160428" iyz="-0.000004273467"
-                  izz="0.011763977943" />
+        <inertia  ixx="0" ixy="0" ixz="0"
+                  iyy="0" iyz="0"
+                  izz="0" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="${0.5 * caster_radius - caster_trailing_dist} 0 ${0.5 * caster_radius}" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="${caster_radius}" length="${caster_width}"/>
+          <box size="${caster_radius} ${1.2 * caster_width} ${caster_radius}"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="${0.5 * caster_radius - caster_trailing_dist} 0 ${0.5 * caster_radius}" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="${caster_radius}" length="${caster_width}"/>
+          <box size="${caster_radius} ${1.2 * caster_width} ${caster_radius}"/>
         </geometry>
       </collision>
     </link>
@@ -173,21 +173,22 @@
 
     <link name="${name}_link">
       <inertial>
-        <origin xyz="-0.14527 -0.00003 0.24721" rpy="0 0 0" /> <!-- assuming d=0.6, w=0.5, h=0.4 -->
-        <mass value="63.58850" />
-        <inertia ixx="3.42"  ixy="0"  ixz="0" iyy="4.33" iyz="0" izz="5.08" /> <!-- assuming d=0.6, w=0.5, h=0.4 -->
+        <origin xyz="-0.15006 -0.00031 0.24965" rpy="0 0 0" />
+        <mass value="64.063" />
+        <!-- NOTE: Assuming box with d=0.6, w=0.5, h=0.4 -->
+        <inertia ixx="3.42"  ixy="0"  ixz="0" iyy="4.33" iyz="0" izz="5.08" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/base/base_low.stl" />
+          <mesh filename="package://reem_description/meshes/base/base.dae" />
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/base/convex/base_low_convex.stlb" />
+          <mesh filename="package://reem_description/meshes/base/base_collision.stl" />
         </geometry>
         <material name="LightGrey" />
       </collision>
@@ -321,12 +322,12 @@
   
     <!-- bumper front right -->
     <xacro:bumper_reem name="${name}_bumper_01" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="0.15 -0.15 0.15" rpy="0 0 0" />
+      <origin xyz="0.195 -0.15 0.15" rpy="0 0 ${-15.0 * deg_to_rad}" />
     </xacro:bumper_reem>  
 
     <!-- bumper front left -->
     <xacro:bumper_reem name="${name}_bumper_02" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="0.15 0.15 0.15" rpy="0 0 0" />
+      <origin xyz="0.195 0.15 0.15" rpy="0 0 ${15.0 * deg_to_rad}" />
     </xacro:bumper_reem>  
 
     <!-- bumper left 1 -->
