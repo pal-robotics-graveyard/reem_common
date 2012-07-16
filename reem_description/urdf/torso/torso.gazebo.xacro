@@ -15,14 +15,12 @@
 
   <xacro:macro name="reem_torso_1_gazebo">
     <gazebo reference="torso_1_link">
-      <material>reem/DarkGrey</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
   </xacro:macro>
 
   <xacro:macro name="reem_torso_2_gazebo">
     <gazebo reference="torso_2_link">
-      <material>reem/LightGrey</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
   </xacro:macro>

@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <!--
 
-  Copyright (c) 2011, PAL Robotics, S.L.
+  Copyright (c) 2011-2012, PAL Robotics, S.L.
   All rights reserved.
 
   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
   To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
-<robot  xmlns:xacro="http://ros.org/wiki/xacro"
-        xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
   <include filename="$(find reem_description)/urdf/torso/torso.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/torso/torso.transmission.xacro" />
 
-  <xacro:property name="torso_friction" value="20.0" />
-  <xacro:property name="torso_damping"  value="0.5" />
+  <xacro:property name="torso_friction" value="20.0" /> <!--TODO: Tune-->
+  <xacro:property name="torso_damping"  value="1.0" />  <!--TODO: Tune-->
   <xacro:property name="torso_max_vel"  value="0.5" />
 
   <xacro:macro name="reem_torso" params="name parent">
@@ -27,33 +27,31 @@
     <!--************************-->
     <link name="${name}_1_link">
       <inertial>
-        <origin xyz="-0.00299 0.00501 -0.07336" rpy="0 0 0" />
-        <mass value="6.653" />
-        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+        <origin xyz="-0.00476 0.00413 0.13972" rpy="0 0 0" />
+        <mass value="9.807" />
+        <!-- NOTE: Assuming cylinder with r=0.15, h=0.14 -->
+         <inertia ixx="0.015591"  ixy="0"  ixz="0" iyy="0.015591" iyz="0" izz="0.024165" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/torso/torso_1_low.stl" />
+          <mesh filename="package://reem_description/meshes/torso/torso_1.dae"/>
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
-        <origin xyz="0 0 -0.1" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="0.16" length="0.18" />
+          <mesh filename="package://reem_description/meshes/torso/torso_1_collision.stl"/>
         </geometry>
-        <material name="DarkGrey" />
       </collision>
     </link>
 
     <joint name="${name}_1_joint" type="revolute">
       <parent link="${parent}"/>
       <child link="${name}_1_link"/>
-      <origin xyz="-0.1091 0 1.0531" rpy="0 0 0" />
+      <origin xyz="-0.108 0 0.8725" rpy="0 0 0" />
       <axis xyz="0 0 1" />
       <limit lower="${-75.0 * deg_to_rad}" upper="${75.0 * deg_to_rad}" effort="0.0" velocity="${torso_max_vel}" />
-      <dynamics damping="${torso_damping}" friction="${torso_friction}"/>  <!--TODO: Tune-->
+      <dynamics damping="${torso_damping}" friction="${torso_friction}"/>
     </joint>
 
     <!-- extensions -->
@@ -66,19 +64,19 @@
     <!--************************-->
     <link name="${name}_2_link">
       <inertial>
-        <origin xyz="-0.01241 -0.16263 0.00011" rpy="0 0 0"/>
-        <mass value="11.717" />
+        <origin xyz="0.00675 -0.16711 0.00016" rpy="0 0 0"/>
+        <mass value="13.299" />
+        <!-- NOTE: Assuming box with d=0.2, w=0.4, h=0.46 -->
+<!--         <inertia ixx="0.41183"  ixy="0"  ixz="0" iyy="0.22165" iyz="0" izz="0.27884" /> --> <!--TODO: Tune controller!-->
         <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/torso/torso_2_low.stl" />
+          <mesh filename="package://reem_description/meshes/torso/torso_2.dae"/>
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <mesh filename="package://reem_description/meshes/torso/torso_2_collision.stl" />
         </geometry>
@@ -88,10 +86,11 @@
     <joint name="${name}_2_joint" type="revolute">
       <parent link="${name}_1_link" />
       <child link="${name}_2_link" />
-      <origin xyz="-0 0 0" rpy="${-90.0 * deg_to_rad} 0 0" />
+<!--       <origin xyz="-0 0 0" rpy="${-90.0 * deg_to_rad} 0 0" /> -->
+      <origin xyz="-0 0 0.1985" rpy="${-90.0 * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
       <limit lower="${-15.0 * deg_to_rad}" upper="${45.0 * deg_to_rad}" effort="0.0" velocity="${torso_max_vel}" />
-      <dynamics damping="${torso_damping}" friction="${torso_friction}"/>  <!--TODO: Tune-->
+      <dynamics damping="${torso_damping}" friction="${torso_friction}"/>
     </joint>
 
     <!-- extensions -->
