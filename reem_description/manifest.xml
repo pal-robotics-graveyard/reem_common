@@ -6,7 +6,4 @@
   <license>Creative Commons BY-NC-ND 3.0</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/reem_description</url>
-
-  <depend package="convex_decomposition"/>
-  <depend package="ivcon"/>
 </package>
