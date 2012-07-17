@@ -42,8 +42,8 @@
     <link name="wheel_${side}_link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0" />
-        <mass value="1.0" />
-        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+        <mass value="3.5" />
+        <inertia ixx="0.00156"  ixy="0"  ixz="0" iyy="0.00156" iyz="0" izz="0.0273" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -104,10 +104,10 @@
     <link name="caster_${side}_2_link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="0.1" />
-        <inertia  ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-                  iyy="0.015218160428" iyz="-0.000004273467"
-                  izz="0.011763977943" />
+        <mass value="0.4" />
+        <inertia  ixx="0.00044" ixy="0" ixz="0"
+                  iyy="0.00044" iyz="0"
+                  izz="0.00078" />
         </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -198,10 +198,10 @@
     using the navigation stack -->
     <link name="${name}_footprint">
       <inertial>
-        <mass value="1.0" />
+        <mass value="0.1" />
         <origin xyz="0 0 0" />
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0"
-                 iyy="0.01" iyz="0.0" izz="0.01" />
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0"
+                 iyy="0.0" iyz="0.0" izz="0.0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -322,38 +322,38 @@
   
     <!-- bumper front right -->
     <xacro:bumper_reem name="${name}_bumper_01" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="0.195 -0.15 0.15" rpy="0 0 ${-15.0 * deg_to_rad}" />
+      <origin xyz="0.205 -0.15 0.15" rpy="0 0 ${-15.0 * deg_to_rad}" />
     </xacro:bumper_reem>  
 
     <!-- bumper front left -->
     <xacro:bumper_reem name="${name}_bumper_02" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="0.195 0.15 0.15" rpy="0 0 ${15.0 * deg_to_rad}" />
-    </xacro:bumper_reem>  
+      <origin xyz="0.205 0.15 0.15" rpy="0 0 ${15.0 * deg_to_rad}" />
+    </xacro:bumper_reem>
 
     <!-- bumper left 1 -->
     <xacro:bumper_reem name="${name}_bumper_03" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="0.064 0.30 0.1" rpy="0 0 1.57" />
-    </xacro:bumper_reem>  
+      <origin xyz="-0.04 0.31 0.1" rpy="0 0 ${90.0 * deg_to_rad}" />
+    </xacro:bumper_reem>
 
     <!-- bumper left 2 -->
     <xacro:bumper_reem name="${name}_bumper_04" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="-0.35 -0.27 0.075" rpy="0 0 1.57" />
-    </xacro:bumper_reem>  
+      <origin xyz="-0.3 0.29 0.1" rpy="0 0 ${100.0 * deg_to_rad}" />
+    </xacro:bumper_reem>
 
     <!-- bumper back -->
     <xacro:bumper_reem name="${name}_bumper_05" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="-0.51 0.0 0.075" rpy="0 0 -3.1415" />
-    </xacro:bumper_reem>  
+      <origin xyz="-0.525 0.0 0.1" rpy="0 0 ${180.0 * deg_to_rad}" />
+    </xacro:bumper_reem>
 
     <!-- bumper right 2 -->
     <xacro:bumper_reem name="${name}_bumper_06" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="-0.35 0.27 0.075" rpy="0 0 1.57" />
-    </xacro:bumper_reem>  
+      <origin xyz="-0.3 -0.29 0.1" rpy="0 0 ${-100.0 * deg_to_rad}" />
+    </xacro:bumper_reem>
 
     <!-- bumper right 1 -->
     <xacro:bumper_reem name="${name}_bumper_07" parent="${name}" ros_topic="bumper_contact" update_rate="25" >
-      <origin xyz="0.064 -0.30 0.1" rpy="0 0 1.57" />
-    </xacro:bumper_reem>  
+      <origin xyz="-0.04 -0.31 0.1" rpy="0 0 ${-90.0 * deg_to_rad}" />
+    </xacro:bumper_reem>
 
     <!-- gyroscope microinfinity XA3300
     <xacro:microinfinity_xa3300 name="imu" parent="${name}" imu_topic="imu/data" update_rate="100.0" stdev="0.0005" >
@@ -389,9 +389,9 @@
     <link name="${name}_cargo_link">
       <inertial>
         <mass value="1.0" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0"
-                 iyy="0.01" iyz="0.0" izz="0.01" />
+        <origin xyz="0 0 -0.5" />
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0"
+                 iyy="0.0" iyz="0.0" izz="0.0" />
       </inertial>
       <visual>
         <origin xyz="0 0 -0.5" rpy="0 0 0" />
