@@ -159,6 +159,7 @@
   <library_images>
     <image id="head2_color_png">
       <init_from>./head_2_color.png</init_from>
+<!--       <init_from>./head_2_color_blue.png</init_from> -->
     </image>
     <image id="head2_normals_png">
       <init_from>./head_2_normals.png</init_from>
