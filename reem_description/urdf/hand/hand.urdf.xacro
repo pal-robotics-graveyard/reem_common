@@ -35,7 +35,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/convex/hand_${side}_low_convex.stlb" />
+          <mesh filename="package://reem_description/meshes/hand/hand_${side}_low_convex.stlb" />
         </geometry>
       </collision>
     </link>
