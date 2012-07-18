@@ -13,9 +13,9 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <xacro:macro name="rh1_hand_1_gazebo" params="name side">
-    <gazebo reference="hand_${side}_1_link">
-      <material>Gazebo/Grey</material>
+    <xacro:macro name="hand_gazebo" params="name">
+    <gazebo reference="${name}_link">
+      <material>Gazebo/White</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
     </xacro:macro>

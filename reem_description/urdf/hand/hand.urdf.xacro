@@ -17,39 +17,183 @@
   <include filename="$(find reem_description)/urdf/hand/hand.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/hand/hand.transmission.xacro" />
 
-  <xacro:macro name="reem_hand" params="name side reflect">
+  <xacro:property name="hand_friction" value="0.1" /> <!--TODO: Tune-->
+  <xacro:property name="hand_damping"  value="0.1" /> <!--TODO: Tune-->
+  <xacro:property name="hand_max_vel" value="1.0" />
 
-    <link name="hand_${side}_link">
+  <xacro:macro name="reem_finger" params="hand_name hand_side hand_reflect finger_name finger_reflect">
+    <joint name="${hand_name}_${hand_side}_${finger_name}_1_joint" type="revolute">
+      <parent link="${hand_name}_${hand_side}_palm_link" />
+      <child link="${hand_name}_${hand_side}_${finger_name}_1_link" />
+      <origin xyz="0.101 ${reflect * 0.0025} ${finger_reflect * 0.0165}" rpy="${(90.0 - reflect * 90.0) * deg_to_rad} 0 ${reflect * 90.0 * deg_to_rad}" />
+      <axis xyz="0 0 1" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
+    </joint>
+
+    <link name="${hand_name}_${hand_side}_${finger_name}_1_link">
       <inertial>
-        <origin xyz="0.01747 ${reflect * 0.0014} ${reflect * 0.128}" rpy="0 0 0" />
-        <mass value="0.8" />
-        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+        <origin xyz="0 0 0" rpy="0 0 0" /> <!--TODO: Fill up-->
+        <mass value="0.1" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> <!--TODO: Fill up-->
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_${side}_low.stl" />
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_1.stl" scale="1 1 ${-reflect * finger_reflect}" />
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_${side}_low_convex.stlb" />
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_1_collision.stl" scale="1 1 ${-reflect * finger_reflect}" />
         </geometry>
       </collision>
     </link>
 
-    <joint name="hand_${side}_joint" type="fixed">
-      <parent link="arm_${side}_7_link" />
-      <child link="hand_${side}_link" />
+    <joint name="${hand_name}_${hand_side}_${finger_name}_2_joint" type="revolute">
+      <parent link="${hand_name}_${hand_side}_${finger_name}_1_link" />
+      <child link="${hand_name}_${hand_side}_${finger_name}_2_link" />
+      <origin xyz="0.00357 -0.04084 0" rpy="0 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
+      <mimic joint="${hand_name}_${hand_side}_${finger_name}_1_joint" multiplier="1" offset="0"/>
+    </joint>
+
+    <link name="${hand_name}_${hand_side}_${finger_name}_2_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" /> <!--TODO: Fill up-->
+        <mass value="0.05" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> <!--TODO: Fill up-->
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_2.stl" scale="1 1 ${-reflect * finger_reflect }" />
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_2_collision.stl" scale="1 1 ${-reflect * finger_reflect}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${hand_name}_${hand_side}_${finger_name}_3_joint" type="revolute">
+      <parent link="${hand_name}_${hand_side}_${finger_name}_2_link" />
+      <child link="${hand_name}_${hand_side}_${finger_name}_3_link" />
+      <origin xyz="0.00572 -0.0269 0" rpy="0 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
+      <mimic joint="${hand_name}_${hand_side}_${finger_name}_2_joint" multiplier="1" offset="0"/>
+    </joint>
+
+    <link name="${hand_name}_${hand_side}_${finger_name}_3_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" /> <!--TODO: Fill up-->
+        <mass value="0.05" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> <!--TODO: Fill up-->
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_3.stl" scale="1 1 ${-reflect * finger_reflect}" />
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_3_collision.stl" scale="1 1 ${-reflect * finger_reflect}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_1"/>
+    <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_2"/>
+    <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_3"/>
+    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_1" />
+    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_2" />
+    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_3" />
+  </xacro:macro>
+
+
+  <xacro:macro name="reem_hand" params="name parent side reflect">
+
+    <!-- Palm -->
+    <joint name="${name}_${side}_palm_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="${name}_${side}_palm_link" />
       <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
-    <!-- extensions -->
-    <xacro:reem_hand_1_gazebo name="${name}" side="${side}" />
-<!--     <xacro:reem_hand_1_transmission name="${name}" side="${side}" /> --><!--TODO: Remove?-->
+    <link name="${name}_${side}_palm_link">
+      <inertial>
+        <origin xyz="0.07547 0.00468 0.00291" rpy="0 0 0" />
+        <mass value="0.91066" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_palm.stl" scale="1 ${-reflect} 1" />
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_palm_collision.stl" scale="1 ${-reflect} 1" />
+        </geometry>
+      </collision>
+    </link>
 
+    <xacro:hand_gazebo name="${name}_${side}_palm"/>
+
+    <!-- Thumb -->
+    <joint name="${name}_${side}_thumb_joint" type="revolute">
+      <parent link="${name}_${side}_palm_link" />
+      <child link="${name}_${side}_thumb_link" />
+      <origin xyz="0.03649 ${reflect * 0.008}  0.02" rpy="0 ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
+      <axis xyz="0 0 1" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
+    </joint>
+
+    <link name="${name}_${side}_thumb_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" /> <!--TODO: Fill up-->
+        <mass value="0.1" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> <!--TODO: Fill up-->
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_thumb.stl" scale="1 ${-reflect} 1" />
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://reem_description/meshes/hand/hand_thumb_collision.stl" scale="1 ${-reflect} 1" />
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:hand_gazebo name="${name}_${side}_thumb"/>
+    <xacro:hand_simple_transmission name="${name}_${side}_thumb" />
+
+    <!-- Index finger -->
+    <xacro:reem_finger hand_name="${name}" hand_side="${side}" hand_reflect="${reflect}" finger_name="index" finger_reflect="1"/>
+
+    <!-- Middle finger -->
+    <xacro:reem_finger hand_name="${name}" hand_side="${side}" hand_reflect="${reflect}" finger_name="middle" finger_reflect="-1"/>
   </xacro:macro>
 
 </robot>

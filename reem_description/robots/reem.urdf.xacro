@@ -41,12 +41,13 @@
   <xacro:reem_torso name="torso" parent="base_link"/>
   <xacro:reem_head  name="head"  parent="torso_2_link"/>
 
-   This is a common convention, to use a reflect parameter that equals +-1 to distinguish left from right
+  <!-- The reflect parameter takes the value 1 or -1 to respectively distinguish right from left side in expressions -->
   <xacro:reem_arm name="arm" side="right" reflect="1.0" />
   <xacro:reem_arm name="arm" side="left"  reflect="-1.0" />
 
-  <xacro:reem_hand name="hand" side="right" reflect="1.0" />
-  <xacro:reem_hand name="hand" side="left"  reflect="-1.0" />
+  <xacro:reem_hand name="hand" parent="arm_right_tool_link" side="right" reflect="1.0"  />
+  <xacro:reem_hand name="hand" parent="arm_left_tool_link"  side="left"  reflect="-1.0" />
+
   <!-- stereo camera -->
   <!-- IMPORTANT: focal_length = image_width/(2tan(hfov/2)) -->
   <xacro:stereo_camera_v0 parent="head_2_link" name="stereo" focal_length="357.95" hfov="85" image_format="B8G8R8" image_width="656" image_height="492" > 
