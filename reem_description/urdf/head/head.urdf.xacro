@@ -49,7 +49,7 @@
 
     <joint name="${name}_joint" type="revolute">
       <parent link="${parent}"/>
-        <child link="${name}_link"/>
+      <child link="${name}_link"/>
       <origin xyz="-0.024 -0.412 0" rpy="${90.0 * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
       <limit lower="${-75.0 * deg_to_rad}" upper="${75.0 * deg_to_rad}" effort="0.0" velocity="${head_max_vel}" />
@@ -68,7 +68,8 @@
   <xacro:macro name="reem_head_2" params="name parent">
     <link name="${name}_link">
       <inertial>
-        <origin xyz="-0.04431 -0.13008 0.00011" rpy="0 0 0" />
+<!--         <origin xyz="-0.04431 -0.13008 0.00011" rpy="0 0 0" /> --> <!--TODO: Figure out why CoM is not properly displayed in Gazebo!-->
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <mass value="1.20862" />
         <!-- NOTE: Assuming box with d=0.28433, w=0.20302, h=0.26741 -->
         <inertia ixx="0.011353"  ixy="0"  ixz="0" iyy="0.012294" iyz="0" izz="0.015345" />
