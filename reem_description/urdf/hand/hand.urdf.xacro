@@ -57,7 +57,7 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_2_link" />
       <origin xyz="0.00357 -0.04084 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
       <mimic joint="${hand_name}_${hand_side}_${finger_name}_1_joint" multiplier="1" offset="0"/>
     </joint>
@@ -88,7 +88,7 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_3_link" />
       <origin xyz="0.00572 -0.0269 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
       <mimic joint="${hand_name}_${hand_side}_${finger_name}_2_joint" multiplier="1" offset="0"/>
     </joint>
@@ -134,7 +134,8 @@
 
     <link name="${name}_${side}_palm_link">
       <inertial>
-        <origin xyz="0.07547 0.00468 0.00291" rpy="0 0 0" />
+        <!--<origin xyz="0.07547 0.00468 0.00291" rpy="0 0 0" />-->  <!--TODO: Figure out why CoM is not properly displayed in Gazebo!-->
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <mass value="0.91066" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
@@ -159,9 +160,9 @@
     <joint name="${name}_${side}_thumb_joint" type="revolute">
       <parent link="${name}_${side}_palm_link" />
       <child link="${name}_${side}_thumb_link" />
-      <origin xyz="0.03649 ${reflect * 0.008}  0.02" rpy="0 ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
+      <origin xyz="0.03649 ${reflect * 0.008}  0.02" rpy="${(90.0 + reflect * 90.0) * deg_to_rad} ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${92.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
     </joint>
 
@@ -174,14 +175,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_thumb.stl" scale="1 ${-reflect} 1" />
+          <mesh filename="package://reem_description/meshes/hand/hand_thumb.stl" scale="1 1 ${-reflect}" />
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_thumb_collision.stl" scale="1 ${-reflect} 1" />
+          <mesh filename="package://reem_description/meshes/hand/hand_thumb_collision.stl" scale="1 1 ${-reflect}" />
         </geometry>
       </collision>
     </link>
