@@ -402,9 +402,9 @@
         <material name="Green" />
       </visual>
       <collision>
-        <origin xyz="0 0 0.0" rpy="0 0 0" />
+        <origin xyz="0.05 0 0.02" rpy="0 0 0" />
         <geometry>
-          <box size="0.40 0.45 0.25" /> <!-- Generous hand luggage size allowed in an airplane is 0.55x0.45x0.25. This slightly smaller. -->
+          <box size="0.30 0.40 0.25" /> <!-- Generous hand luggage size allowed in an airplane is 0.55x0.45x0.25. This slightly smaller. -->
         </geometry>
       </collision>
     </link>
