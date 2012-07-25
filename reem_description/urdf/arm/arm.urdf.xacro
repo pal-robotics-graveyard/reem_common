@@ -128,7 +128,7 @@
       <child link="arm_${side}_3_link" />
       <origin xyz="0.02 -0.142 0" rpy="${90.0 * reflect * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${-135.0 * deg_to_rad}" upper="${157.5.0 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
+      <limit lower="${-135.0 * deg_to_rad}" upper="${157.5 * deg_to_rad}" effort="0.0" velocity="${arm_max_vel}" />
       <dynamics friction="${arm_friction}" damping="${arm_damping}"/>
     </joint>
 
