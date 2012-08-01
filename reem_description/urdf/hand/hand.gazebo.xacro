@@ -15,7 +15,6 @@
 
     <xacro:macro name="hand_gazebo" params="name">
     <gazebo reference="${name}_link">
-      <material>Gazebo/White</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
     </xacro:macro>

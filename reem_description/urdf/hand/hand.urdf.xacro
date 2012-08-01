@@ -40,7 +40,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_finger_1.stl" scale="1 1 ${-reflect * finger_reflect}" />
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_1.dae" scale="1 1 ${-reflect * finger_reflect}" />
         </geometry>
         <material name="LightGrey" />
       </visual>
@@ -71,7 +71,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_finger_2.stl" scale="1 1 ${-reflect * finger_reflect }" />
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_2.dae" scale="1 1 ${-reflect * finger_reflect }" />
         </geometry>
         <material name="LightGrey" />
       </visual>
@@ -102,7 +102,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_finger_3.stl" scale="1 1 ${-reflect * finger_reflect}" />
+          <mesh filename="package://reem_description/meshes/hand/hand_finger_3.dae" scale="1 1 ${-reflect * finger_reflect}" />
         </geometry>
         <material name="LightGrey" />
       </visual>
@@ -142,7 +142,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_palm.stl" scale="1 ${-reflect} 1" />
+          <mesh filename="package://reem_description/meshes/hand/hand_palm.dae" scale="1 ${-reflect} 1" />
         </geometry>
         <material name="LightGrey" />
       </visual>
@@ -175,7 +175,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://reem_description/meshes/hand/hand_thumb.stl" scale="1 1 ${-reflect}" />
+          <mesh filename="package://reem_description/meshes/hand/hand_thumb.dae" scale="1 1 ${-reflect}" />
         </geometry>
         <material name="LightGrey" />
       </visual>
