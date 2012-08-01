@@ -31,14 +31,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="0.105 0.105 0.152" />
+          <box size="0.105 0.105 0.11" />
         </geometry>
         <material name="DarkGrey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="0.105 0.105 0.152" />
+          <box size="0.105 0.105 0.11" />
         </geometry>
       </collision >
     </link>
