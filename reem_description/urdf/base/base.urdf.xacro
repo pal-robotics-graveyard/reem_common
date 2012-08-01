@@ -82,9 +82,7 @@
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.1" />
-        <inertia  ixx="0" ixy="0" ixz="0"
-                  iyy="0" iyz="0"
-                  izz="0" />
+        <inertia  ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
         <origin xyz="${0.5 * caster_radius - caster_trailing_dist} 0 ${0.5 * caster_radius}" rpy="0 0 0" />
@@ -105,9 +103,7 @@
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.4" />
-        <inertia  ixx="0.00044" ixy="0" ixz="0"
-                  iyy="0.00044" iyz="0"
-                  izz="0.00078" />
+        <inertia  ixx="0.00044" ixy="0" ixz="0" iyy="0.00044" iyz="0" izz="0.00078" />
         </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -148,22 +144,11 @@
   <property name="base_laser_x" value="0.08" />
   <property name="base_laser_y" value="0.0" />
   <property name="base_laser_z" value="0.08" />
-  <property name="base_laser_size_x" value="0.11" />
-  <property name="base_laser_size_y" value="0.11" />
-  <property name="base_laser_size_z" value="0.16" />
-  <property name="base_laser_collision_offset_z" value="0.00" />
-  <property name="base_laser_collision_offset_y" value="0.00" />
-  <property name="base_laser_collision_offset_x" value="0.00" />
-
 
   <!-- simplified box collision geometry for hokuyo laser -->
   <property name="torso_laser_x" value="0.04" />
   <property name="torso_laser_y" value="0.0" />
   <property name="torso_laser_z" value="0.77" />
-  <!--property name="torso_laser_size_x" value="0.05" />
-  <property name="torso_laser_size_y" value="0.05" />
-  <property name="torso_laser_size_z" value="0.03" /-->
-  <!--property name="torso_laser_collision_offset_z" value="0.750" /-->
 
   <xacro:macro name="reem_base" params="name">
 
@@ -200,8 +185,7 @@
       <inertial>
         <mass value="0.1" />
         <origin xyz="0 0 0" />
-        <inertia ixx="0.0" ixy="0.0" ixz="0.0"
-                 iyy="0.0" iyz="0.0" izz="0.0" />
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0.2" rpy="0 0 0" />
@@ -390,8 +374,7 @@
       <inertial>
         <mass value="1.0" />
         <origin xyz="0 0 -0.5" />
-        <inertia ixx="0.0" ixy="0.0" ixz="0.0"
-                 iyy="0.0" iyz="0.0" izz="0.0" />
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
       </inertial>
       <visual>
         <origin xyz="0 0 -0.5" rpy="0 0 0" />

@@ -134,8 +134,8 @@
 
     <link name="${name}_${side}_palm_link">
       <inertial>
-        <!--<origin xyz="0.07547 0.00468 0.00291" rpy="0 0 0" />-->  <!--TODO: Figure out why CoM is not properly displayed in Gazebo!-->
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <!--<origin xyz="0.07547 ${-reflect * 0.00468} 0.00291" rpy="0 0 0" />-->
+        <origin xyz="0 ${-reflect * 0.07547} 0 " rpy="0 0 0" /> <!--TODO: This does not make sense!, there must be a bug in how Gazebo bungles the CoM of a chain of fixed joints-->
         <mass value="0.91066" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>

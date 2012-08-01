@@ -17,8 +17,8 @@
   <include filename="$(find reem_description)/urdf/head/head.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/head/head.transmission.xacro" />
 
-  <xacro:property name="head_friction" value="3.0" /> <!--TODO: Tune-->
-  <xacro:property name="head_damping"  value="1.0" /> <!--TODO: Tune-->
+  <xacro:property name="head_friction" value="3.0" />
+  <xacro:property name="head_damping"  value="1.0" />
   <xacro:property name="head_max_vel"  value="1.0" />
 
   <!--************************-->
@@ -68,8 +68,7 @@
   <xacro:macro name="reem_head_2" params="name parent">
     <link name="${name}_link">
       <inertial>
-<!--         <origin xyz="-0.04431 -0.13008 0.00011" rpy="0 0 0" /> --> <!--TODO: Figure out why CoM is not properly displayed in Gazebo!-->
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="-0.04431 -0.13008 0.00011" rpy="0 0 0" />
         <mass value="1.20862" />
         <!-- NOTE: Assuming box with d=0.28433, w=0.20302, h=0.26741 -->
         <inertia ixx="0.011353"  ixy="0"  ixz="0" iyy="0.012294" iyz="0" izz="0.015345" />
