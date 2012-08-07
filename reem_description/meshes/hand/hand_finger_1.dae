@@ -155,13 +155,13 @@
   </library_geometries>
   <library_images>
     <image id="hand_finger1_color_png">
-      <init_from>./hand_finger1_color.png</init_from>
+      <init_from>./hand_finger_1_color.png</init_from>
     </image>
     <image id="hand_finger1_normals_png">
-      <init_from>./hand_finger1_normals.png</init_from>
+      <init_from>./hand_finger_1_normals.png</init_from>
     </image>
     <image id="hand_finger1_specular_png">
-      <init_from>./hand_finger1_specular.png</init_from>
+      <init_from>./hand_finger_1_specular.png</init_from>
     </image>
   </library_images>
   <library_visual_scenes>
