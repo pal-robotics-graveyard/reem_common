@@ -15,35 +15,27 @@
        xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="range_reem_gazebo" params="name ros_topic update_rate maxRange minRange fov radiation" >
-
+       
     <gazebo reference="${name}_link">
       <sensor:ray name="${name}">
-        <!-- displayRays>fan</displayRays -->
-
         <rayCount>5</rayCount>
         <rangeCount>5</rangeCount>
         <verticalRayCount>5</verticalRayCount>
         <verticalRangeCount>5</verticalRangeCount>
-
         <minAngle>-${fov/2}</minAngle>
         <verticalMinAngle>-${fov/2}</verticalMinAngle>
         <maxAngle>${fov/2}</maxAngle>
         <verticalMaxAngle>${fov/2}</verticalMaxAngle>
-
         <minRange>${minRange}</minRange>
         <maxRange>${maxRange}</maxRange>
         <resRange>0.01</resRange>
-
         <updateRate>${update_rate}</updateRate>
-
         <controller:gazebo_ros_sonar name="gazebo_ros_${name}_controller" plugin="libgazebo_ros_sonar.so">
           <gaussianNoise>0.005</gaussianNoise>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>${update_rate}</updateRate>
           <topicName>${ros_topic}</topicName>
           <frameId>${name}_link</frameId>
-          <radiation>${radiation}</radiation>
           <fov>${fov}</fov>
+          <radiation>${radiation}</radiation>
         </controller:gazebo_ros_sonar>
       </sensor:ray>
     </gazebo>  

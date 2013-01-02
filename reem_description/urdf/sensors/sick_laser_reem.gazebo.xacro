@@ -39,6 +39,7 @@
           <topicName>${ros_topic}</topicName>
           <frameName>${name}_link</frameName>
           <interface:laser name="gazebo_ros_${name}_iface" />
+          <hokuyoMinIntensity>101.0</hokuyoMinIntensity>
         </controller:gazebo_ros_laser>
       </sensor:ray>
       <material>Gazebo/Grey</material>

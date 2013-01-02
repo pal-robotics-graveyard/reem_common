@@ -15,19 +15,19 @@
        xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="bumper_reem_gazebo" params="name ros_topic update_rate">
-   <gazebo reference="${name}_link">
+     <gazebo reference="${name}_link">
         <selfCollide>false</selfCollide>
-        <sensor:contact name="{name}_contact">
-           <geom>base_footprint_geom_${name}_link</geom>
-           <updateRate>100.0</updateRate>
-             <controller:reem_bumper_gazebo name="reem_gazebo_bumper_controller1" plugin="libreem_bumper_gazebo.so">
-             <alwaysOn>true</alwaysOn>
-             <updateRate>100.0</updateRate>
-             <frameId>${name}_link</frameId>
-             <bumperTopicName>${ros_topic}</bumperTopicName>
-             <interface:bumper name="${name}_iface1" />
-           </controller:reem_bumper_gazebo>
-       </sensor:contact>
+        <sensor:contact name="contact_sensor">
+          <geom>${name}_link_geom</geom>
+          <updateRate>20.0</updateRate>
+          <controller:reem_bumper_gazebo name="gazebo_reem_ros_bumper" plugin="libreem_bumper_gazebo.so">
+              <alwaysOn>true</alwaysOn>
+              <updateRate>20.0</updateRate>
+              <frameName>${name}_link</frameName>
+              <bumperTopicName>${ros_topic}</bumperTopicName>
+          <interface:bumper name="bumper_iface" />
+          </controller:reem_bumper_gazebo>
+      </sensor:contact>
     </gazebo> 
   </xacro:macro>
 

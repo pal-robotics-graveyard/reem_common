@@ -44,8 +44,6 @@
     </link>
 
     <gazebo reference="${name}_link">
-		  <material>Gazebo/Red</material>
-		  <!-- <turnGravityOff>false</turnGravityOff> -->
     </gazebo>
 
     <!-- gazebo extensions -->

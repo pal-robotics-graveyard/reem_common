@@ -30,9 +30,9 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
-        <inertia ixx="0.001"  ixy="0.0"  ixz="0.0"
-                 iyy="0.001"  iyz="0.0"
-                 izz="0.001" />
+        <inertia ixx="0"  ixy="0.0"  ixz="0.0"
+                 iyy="0"  iyz="0.0"
+                 izz="0" />
       </inertial>
 
       <visual>
@@ -42,12 +42,14 @@
         </geometry>
       </visual>
 
+      <!--
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <box size="0.01 0.01 0.01" />
         </geometry>
       </collision>
+      -->
     </link>
 
     <joint name="${name}_optical_frame_joint" type="fixed">
@@ -55,7 +57,17 @@
       <parent link="${name}_frame" />
       <child link="${name}_optical_frame"/>
     </joint>
-    <link name="${name}_optical_frame"/>
+
+    <link name="${name}_optical_frame">
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0"  ixy="0.0"  ixz="0.0"
+                 iyy="0"  iyz="0.0"
+                 izz="0" />
+      </inertial>
+    </link>
+
 
     <!-- extensions -->
     <xacro:stingrayf033c_camera_gazebo_v0 name="${name}" image_format="${image_format}" image_topic_name="${image_topic_name}"
