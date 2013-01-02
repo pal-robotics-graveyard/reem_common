@@ -16,6 +16,8 @@
   <xacro:macro name="reem_arm_gazebo" params="side number">
     <gazebo reference="arm_${side}_${number}_link">
       <turnGravityOff>false</turnGravityOff>
+      <dampingFactor>0.025</dampingFactor>
+      <fudgeFactor value="0.5" />
     </gazebo>
   </xacro:macro>
 

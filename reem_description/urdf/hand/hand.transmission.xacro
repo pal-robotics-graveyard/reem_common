@@ -13,11 +13,11 @@
       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
       xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="hand_simple_transmission" params="name" >
-    <transmission type="SimpleTransmission" name="${name}_trans">
+  <xacro:macro name="hand_simple_transmission" params="name reduction" >
+    <transmission type="pr2_mechanism_model/SimpleTransmission" name="${name}_trans">
       <actuator name="${name}_motor" />
       <joint name="${name}_joint" />
-      <mechanicalReduction>1.0</mechanicalReduction>
+      <mechanicalReduction>${reduction}</mechanicalReduction>
     </transmission>
   </xacro:macro>
 

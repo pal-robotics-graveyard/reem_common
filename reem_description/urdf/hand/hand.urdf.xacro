@@ -17,8 +17,8 @@
   <include filename="$(find reem_description)/urdf/hand/hand.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/hand/hand.transmission.xacro" />
 
-  <xacro:property name="hand_friction" value="0.1" /> <!--TODO: Tune-->
-  <xacro:property name="hand_damping"  value="0.1" /> <!--TODO: Tune-->
+  <xacro:property name="hand_friction" value="0.0" /> <!--TODO: Tune-->
+  <xacro:property name="hand_damping"  value="0.5" /> <!--TODO: Tune-->
   <xacro:property name="hand_max_vel" value="1.0" />
 
   <xacro:macro name="reem_finger" params="hand_name hand_side hand_reflect finger_name finger_reflect">
@@ -27,14 +27,14 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_1_link" />
       <origin xyz="0.101 ${reflect * 0.0025} ${finger_reflect * 0.0165}" rpy="${(90.0 - reflect * 90.0) * deg_to_rad} 0 ${reflect * 90.0 * deg_to_rad}" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
     </joint>
 
     <link name="${hand_name}_${hand_side}_${finger_name}_1_link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0" /> <!--TODO: Fill up-->
-        <mass value="0.1" />
+        <mass value="0.05" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> <!--TODO: Fill up-->
       </inertial>
       <visual>
@@ -57,7 +57,8 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_2_link" />
       <origin xyz="0.00357 -0.04084 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+<!--       <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" /> --> <!--TODO: Restore!-->
+      <limit lower="${0.0 * deg_to_rad}" upper="${1.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
       <mimic joint="${hand_name}_${hand_side}_${finger_name}_1_joint" multiplier="1" offset="0"/>
     </joint>
@@ -88,7 +89,8 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_3_link" />
       <origin xyz="0.00572 -0.0269 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+      <!--<limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />--> <!--TODO: Restore!-->
+      <limit lower="${0.0 * deg_to_rad}" upper="${1.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
       <mimic joint="${hand_name}_${hand_side}_${finger_name}_2_joint" multiplier="1" offset="0"/>
     </joint>
@@ -117,9 +119,9 @@
     <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_1"/>
     <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_2"/>
     <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_3"/>
-    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_1" />
-    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_2" />
-    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_3" />
+    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_1" reduction="200"/>
+    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_2" reduction="200"/>
+    <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_3" reduction="200"/>
   </xacro:macro>
 
 
@@ -136,7 +138,7 @@
       <inertial>
         <!--<origin xyz="0.07547 ${-reflect * 0.00468} 0.00291" rpy="0 0 0" />-->
         <origin xyz="0 ${-reflect * 0.07547} 0 " rpy="0 0 0" /> <!--TODO: This does not make sense!, there must be a bug in how Gazebo bungles the CoM of a chain of fixed joints-->
-        <mass value="0.91066" />
+        <mass value="0.41066" /> <!--NOTE: Assigning 0.05kg to each of the ten phalanxes-->
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
       </inertial>
       <visual>
@@ -162,14 +164,15 @@
       <child link="${name}_${side}_thumb_link" />
       <origin xyz="0.03649 ${reflect * 0.008}  0.02" rpy="${(90.0 + reflect * 90.0) * deg_to_rad} ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
       <axis xyz="0 0 1" />
-      <limit lower="${0.0 * deg_to_rad}" upper="${92.0 * deg_to_rad}" effort="0.0" velocity="${hand_max_vel}" />
+<!--       <limit lower="${0.0 * deg_to_rad}" upper="${92.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" /> -->
+      <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" /> <!--TODO: Restore!-->
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
     </joint>
 
     <link name="${name}_${side}_thumb_link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0" /> <!--TODO: Fill up-->
-        <mass value="0.1" />
+        <mass value="0.05" />
         <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> <!--TODO: Fill up-->
       </inertial>
       <visual>
@@ -188,7 +191,7 @@
     </link>
 
     <xacro:hand_gazebo name="${name}_${side}_thumb"/>
-    <xacro:hand_simple_transmission name="${name}_${side}_thumb" />
+    <xacro:hand_simple_transmission name="${name}_${side}_thumb" reduction="168" />
 
     <!-- Index finger -->
     <xacro:reem_finger hand_name="${name}" hand_side="${side}" hand_reflect="${reflect}" finger_name="index" finger_reflect="1"/>

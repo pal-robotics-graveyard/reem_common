@@ -16,12 +16,14 @@
   <xacro:macro name="reem_head_1_gazebo" params="name">
     <gazebo reference="${name}_link">
     <turnGravityOff>false</turnGravityOff>
+    <dampingFactor>0.025</dampingFactor>
     </gazebo>
   </xacro:macro>
 
   <xacro:macro name="reem_head_2_gazebo" params="name">
     <gazebo reference="${name}_link">
     <turnGravityOff>false</turnGravityOff>
+    <dampingFactor>0.025</dampingFactor>
     </gazebo>
   </xacro:macro>
 

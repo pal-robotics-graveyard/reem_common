@@ -48,8 +48,8 @@
       <child link="${name}_1_link"/>
       <origin xyz="-0.108 0 0.8725" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${-75.0 * deg_to_rad}" upper="${75.0 * deg_to_rad}" effort="0.0" velocity="${torso_max_vel}" />
-      <dynamics damping="5.0" friction="5.0"/>
+      <limit lower="${-75.0 * deg_to_rad}" upper="${75.0 * deg_to_rad}" effort="11.9" velocity="${torso_max_vel}" />
+      <dynamics damping="5.0" friction="1.0"/>
     </joint>
 
     <!-- extensions -->
@@ -85,9 +85,27 @@
       <child link="${name}_2_link" />
       <origin xyz="-0 0 0.1985" rpy="${-90.0 * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
-      <limit lower="${-15.0 * deg_to_rad}" upper="${45.0 * deg_to_rad}" effort="0.0" velocity="${torso_max_vel}" />
-      <dynamics damping="5.0" friction="10.0"/>
+      <limit lower="${-15.0 * deg_to_rad}" upper="${45.0 * deg_to_rad}" effort="80" velocity="${torso_max_vel}" />
+      <dynamics damping="10.0" friction="1.0"/> <!--NOTE: Joint can do 46.2, but set to higher value because of unmodeled springs-->
     </joint>
+    
+    <!-- Torso Front Sonar Ring -->
+   <!-- torso sonar left -->
+   <xacro:range_reem name="${name}_sonar_14" parent="${name}_2" ros_topic="sonar_torso" update_rate="5" maxRange="0.7" minRange="0.005" fov="0.3491" radiation="ultrasound">
+      <origin xyz="0.185 -0.029 0.075" rpy="0.0 0.0 0.0" />
+   </xacro:range_reem> 
+
+   <!-- torso sonar right -->
+   <xacro:range_reem name="${name}_sonar_15" parent="${name}_2" ros_topic="sonar_torso" update_rate="5" maxRange="0.7" minRange="0.005" fov="0.3491" radiation="ultrasound">
+      <origin xyz="0.185 -0.029 -0.075" rpy="0.0 0.0 0.0" />
+   </xacro:range_reem>  
+   
+   <!-- torso sonar back -->
+   <xacro:range_reem name="${name}_sonar_13" parent="${name}_2" ros_topic="sonar_torso" update_rate="5" maxRange="0.7" minRange="0.005" fov="0.3491" radiation="ultrasound">
+      <origin xyz="-0.2 -0.149 0.0" rpy="0.0 ${180.0*deg_to_rad} 0.0" />
+   </xacro:range_reem>
+   
+
 
     <!-- extensions -->
     <xacro:reem_torso_2_gazebo />

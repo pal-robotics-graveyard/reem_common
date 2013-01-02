@@ -41,7 +41,8 @@
  <xacro:macro name="reem_base_controllers">
         <!-- CONTROLLERS -->
         <gazebo>
-            <controller:reem_diffdrive_plugin name="reem_diffdrive_plugin" plugin="libreemDiffdrivePlugin.so">
+            <canonicalBody>base_footprint</canonicalBody>
+            <controller:diffdrive_plugin name="reem_differential_drive_controller" plugin="libreem_diffdrive_plugin.so">
                 <alwaysOn>true</alwaysOn>
                 <update>100</update>
                 <updateRate>100.0</updateRate>
@@ -52,22 +53,8 @@
                 <torque>15</torque>
                 <interface:position name="position_iface_0"/>
                 <robotNamespace>/</robotNamespace>
-                <topicName>cmd_vel</topicName>
-            </controller:reem_diffdrive_plugin> 
-
-            <controller:gazebo_ros_p3d name="p3d_base_controller" plugin="libgazebo_ros_p3d.so">
-                <alwaysOn>true</alwaysOn>
-                <updateRate>100.0</updateRate>
-                <bodyName>base_link</bodyName>
-                <topicName>base_pose_ground_truth</topicName>
-                <gaussianNoise>0.01</gaussianNoise>
-                <frameName>map</frameName>
-                <xyzOffsets>0 0 0</xyzOffsets> 
-                <rpyOffsets>0 0 0</rpyOffsets>
-                <interface:position name="p3d_base_position"/>
-            </controller:gazebo_ros_p3d>
-
-            <canonicalBody>base_footprint</canonicalBody>
+                <topicName>/cmd_vel</topicName>
+            </controller:diffdrive_plugin>
         </gazebo>
   </xacro:macro>
 

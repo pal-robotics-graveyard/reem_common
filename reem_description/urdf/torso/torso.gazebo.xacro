@@ -22,6 +22,7 @@
   <xacro:macro name="reem_torso_2_gazebo">
     <gazebo reference="torso_2_link">
       <turnGravityOff>false</turnGravityOff>
+      <dampingFactor>0.025</dampingFactor>
     </gazebo>
   </xacro:macro>
 

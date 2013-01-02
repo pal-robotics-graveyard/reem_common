@@ -14,7 +14,7 @@
        xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="reem_arm_simple_transmission" params="name side number reduction" >
-    <transmission type="SimpleTransmission" name="${name}_${side}_${number}_trans">
+    <transmission type="pr2_mechanism_model/SimpleTransmission" name="${name}_${side}_${number}_trans">
       <actuator name="${name}_${side}_${number}_motor" />
       <joint name="${name}_${side}_${number}_joint" />
       <mechanicalReduction>${reduction}</mechanicalReduction>

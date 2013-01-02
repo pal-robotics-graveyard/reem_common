@@ -14,7 +14,7 @@
       xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="reem_torso_1_transmission" params="name">
-    <transmission type="SimpleTransmission" name="${name}_1_trans">
+    <transmission type="pr2_mechanism_model/SimpleTransmission" name="${name}_1_trans">
       <actuator   name="${name}_1_motor" />
       <joint      name="${name}_1_joint" />
       <mechanicalReduction>200</mechanicalReduction>
@@ -22,7 +22,7 @@
   </xacro:macro>
 
  <xacro:macro name="reem_torso_2_transmission" params="name">
-   <transmission type="SimpleTransmission" name="${name}_2_trans">
+   <transmission type="pr2_mechanism_model/SimpleTransmission" name="${name}_2_trans">
      <actuator   name="${name}_2_motor" />
      <joint      name="${name}_2_joint" />
      <mechanicalReduction>250</mechanicalReduction>
