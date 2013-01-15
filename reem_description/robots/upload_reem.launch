@@ -1,4 +1,15 @@
 <launch>
-    <!-- send Reem urdf to param server -->
+  <!-- Optional environment variable, to enable RGBD sensor  -->
+  <arg name="use_rgbd_sensor" value="$(optenv USE_RGBD_SENSOR false)" />
+
+  <!-- Default, send standard REEM URDF model to ROS Param Server  -->
+  <group unless="$(arg use_rgbd_sensor)">
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find reem_description)/robots/reem.urdf.xacro'" />
+  </group>
+
+  <!-- Alternatively load REEM URDF with RGBD sensor -->
+  <group if="$(arg use_rgbd_sensor)">
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find reem_description)/robots/reem_xtion.urdf.xacro'" />
+  </group>
+
 </launch>
