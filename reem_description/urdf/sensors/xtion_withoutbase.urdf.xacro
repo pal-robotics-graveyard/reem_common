@@ -102,7 +102,7 @@
     </link>
     <!-- Xtion IR sensor frame -->
     <joint name="${name}_rgbd_ir_optical_frame_joint" type="fixed">
-      <insert_block name="origin" /> <!-- macro argument -->
+      <insert_block name="calibration_origin" /> <!-- macro argument -->
       <parent link="${name}_rgbd_ir_link"/>
       <child link="${name}_rgbd_ir_optical_frame"/>
     </joint>
