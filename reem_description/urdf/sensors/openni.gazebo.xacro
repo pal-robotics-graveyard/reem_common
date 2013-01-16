@@ -47,7 +47,6 @@
           <distortionT2>0.00000001</distortionT2>
         </controller:gazebo_ros_openni_kinect>
       </sensor:camera>
-      <material value="Gazebo/Red" />
     </gazebo>
   </xacro:macro>
 
@@ -77,7 +76,6 @@
           <distortionT2>0.00000001</distortionT2>
         </controller:gazebo_ros_openni_kinect>
       </sensor:camera>
-      <material value="Gazebo/Red" />
     </gazebo>
   </xacro:macro>
 

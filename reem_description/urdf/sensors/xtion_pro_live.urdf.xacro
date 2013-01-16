@@ -53,7 +53,7 @@
         <geometry>
           <mesh filename="package://reem_description/meshes/sensors/xtion_pro_live/xtion_pro_live.dae" />
         </geometry>
-        <material name="gray">
+        <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
         </material>
       </visual>
