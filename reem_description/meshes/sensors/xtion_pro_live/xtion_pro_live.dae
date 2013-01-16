@@ -59,7 +59,7 @@
                             <float>0.5</float>
                         </reflectivity>
                         <transparent  opaque="A_ONE">
-                            <color>0 0 0 1</color>
+                            <color>1 1 1 1</color>
                         </transparent>
                         <transparency>
                             <float>0</float>
