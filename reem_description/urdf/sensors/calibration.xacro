@@ -17,14 +17,14 @@
 
   <!-- Head-mounted ASUS Xtion Pro Live -->
   <!-- These calibration values affect 2 frames:
-         (name)_rgbd_ir_optical_frame
-         (name)_rgbd_rgb_optical_frame              -->
-  <property name="cal_head_mount_rgbd_x" value="0.0" />
-  <property name="cal_head_mount_rgbd_y" value="0.0" />
-  <property name="cal_head_mount_rgbd_z" value="0.0" />
-  <property name="cal_head_mount_rgbd_roll"  value="0.0" /> 
-  <property name="cal_head_mount_rgbd_pitch" value="0.0" />
-  <property name="cal_head_mount_rgbd_yaw"   value="0.0" />
+         (name)_xtion_ir_optical_frame
+         (name)_xtion_rgb_optical_frame              -->
+  <property name="cal_head_mount_xtion_x"     value="0.0" />
+  <property name="cal_head_mount_xtion_y"     value="0.0" />
+  <property name="cal_head_mount_xtion_z"     value="0.0" />
+  <property name="cal_head_mount_xtion_roll"  value="0.0" />
+  <property name="cal_head_mount_xtion_pitch" value="0.0" />
+  <property name="cal_head_mount_xtion_yaw"   value="0.0" />
 
 </robot>
 

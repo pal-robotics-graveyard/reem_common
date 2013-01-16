@@ -51,12 +51,12 @@
     </link>
 
     <!-- Visual mesh and collision geometry -->
-    <joint name="${name}_rgbd_visual_joint" type="fixed">
+    <joint name="${name}_visual_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${M_PI/2} 0.0 ${M_PI/2}" />
       <parent link="${name}_link"/>
-      <child link="${name}_rgbd_visual_link"/>
+      <child link="${name}_visual_link"/>
     </joint>
-    <link name="${name}_rgbd_visual_link">
+    <link name="${name}_visual_link">
       <inertial>
         <mass value="0.1" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -83,14 +83,14 @@
     </link>
 
     <!-- Xtion IR sensor physical attachment -->
-    <joint name="${name}_rgbd_ir_joint" type="fixed">
+    <joint name="${name}_ir_joint" type="fixed">
       <!-- This relates the IR sensor to the Xtion base link -->
       <!-- 4.8 cm because sensors are offset to right, from center -->
       <origin xyz="0 0.048 0" rpy="0 0 0"/>
       <parent link="${name}_link"/>
-      <child link="${name}_rgbd_ir_link"/>
+      <child link="${name}_ir_link"/>
     </joint>
-    <link name="${name}_rgbd_ir_link">
+    <link name="${name}_ir_link">
       <!-- This link is the reference for the IR sensor in Gazebo, so it has inertia properties -->
       <inertial>
         <mass value="0.1" />
@@ -101,23 +101,23 @@
       </inertial>
     </link>
     <!-- Xtion IR sensor frame -->
-    <joint name="${name}_rgbd_ir_optical_frame_joint" type="fixed">
+    <joint name="${name}_ir_optical_frame_joint" type="fixed">
       <insert_block name="calibration_origin" /> <!-- macro argument -->
-      <parent link="${name}_rgbd_ir_link"/>
-      <child link="${name}_rgbd_ir_optical_frame"/>
+      <parent link="${name}_ir_link"/>
+      <child link="${name}_ir_optical_frame"/>
     </joint>
-    <link name="${name}_rgbd_ir_optical_frame"/>
+    <link name="${name}_ir_optical_frame"/>
     <!-- OpenNI IR sensor Gazebo extensions -->
-    <xacro:openni_ir_gazebo_v0 link_name="${name}_rgbd_ir_link" frame_name="${name}_rgbd_ir_optical_frame" camera_name="${name}_rgbd" />
+    <xacro:openni_ir_gazebo_v0 link_name="${name}_ir_link" frame_name="${name}_ir_optical_frame" camera_name="${name}" />
 
     <!-- Xtion RGB sensor physical attachment -->
-    <joint name="${name}_rgbd_rgb_joint" type="fixed">
+    <joint name="${name}_rgb_joint" type="fixed">
       <!-- The measured distance from RGB lens back to IR lens, approx 2.5cm, but PR2 is using 3.0cm -->
       <origin xyz="0 -0.025 0" rpy="0 0 0"/>
-      <parent link="${name}_rgbd_ir_link"/>
-      <child link="${name}_rgbd_rgb_link"/>
+      <parent link="${name}_ir_link"/>
+      <child link="${name}_rgb_link"/>
     </joint>
-    <link name="${name}_rgbd_rgb_link" >
+    <link name="${name}_rgb_link" >
       <!-- This link is the reference for the RGB sensor in Gazebo, so it has inertia properties -->
       <inertial>
         <mass value="0.1" />
@@ -128,14 +128,14 @@
       </inertial>
     </link>
     <!-- Xtion RGB sensor frame -->
-    <joint name="${name}_rgbd_rgb_optical_frame_joint" type="fixed">
+    <joint name="${name}_rgb_optical_frame_joint" type="fixed">
       <insert_block name="calibration_origin" /> <!-- macro argument -->
-      <parent link="${name}_rgbd_rgb_link"/>
-      <child link="${name}_rgbd_rgb_optical_frame"/>
+      <parent link="${name}_rgb_link"/>
+      <child link="${name}_rgb_optical_frame"/>
     </joint>
-    <link name="${name}_rgbd_rgb_optical_frame"/>
+    <link name="${name}_rgb_optical_frame"/>
     <!-- OpenNI RGB sensor Gazebo extensions -->
-    <xacro:openni_rgb_gazebo_v0 link_name="${name}_rgbd_rgb_link" frame_name="${name}_rgbd_rgb_optical_frame" camera_name="${name}_rgbd" />
+    <xacro:openni_rgb_gazebo_v0 link_name="${name}_rgb_link" frame_name="${name}_rgb_optical_frame" camera_name="${name}" />
 
   </xacro:macro>
 

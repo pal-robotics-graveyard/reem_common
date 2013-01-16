@@ -68,11 +68,11 @@
   </xacro:back_camera_v0>-->
 
   <!-- head-mounted ASUS Xtion Pro Live -->
-  <xacro:xtion_withoutbase parent="head_2_link" name="head_mount" > <!-- name is appended to create link and topic names -->
+  <xacro:xtion_withoutbase parent="head_2_link" name="head_mount_xtion" > <!-- name is appended to create link and topic names -->
      <origin xyz="0.056 -0.252 0.0" rpy="${M_PI/2} 0.0 0.34906" /> <!-- 0.252   = height above neck joint
                                                                         0.34906 = pitch angle downwards   -->
-     <origin xyz="${cal_head_mount_rgbd_x} ${cal_head_mount_rgbd_y} ${cal_head_mount_rgbd_z}"
-             rpy="${-M_PI/2+cal_head_mount_rgbd_roll} ${0.0+cal_head_mount_rgbd_pitch} ${-M_PI/2+cal_head_mount_rgbd_yaw}" />
+     <origin xyz="${cal_head_mount_xtion_x} ${cal_head_mount_xtion_y} ${cal_head_mount_xtion_z}"
+             rpy="${-M_PI/2+cal_head_mount_xtion_roll} ${0.0+cal_head_mount_xtion_pitch} ${-M_PI/2+cal_head_mount_xtion_yaw}" />
   </xacro:xtion_withoutbase>
 
 </robot>
