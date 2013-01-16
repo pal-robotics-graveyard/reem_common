@@ -42,11 +42,11 @@
     </joint>
     <link name="${name}_link">
       <inertial>
-        <mass value="0.1" />
+        <mass value="0.01" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <inertia ixx="0.01"  ixy="0.0"  ixz="0.0"
-                 iyy="0.01"  iyz="0.0"
-                 izz="0.01" />
+        <inertia ixx="0.0"  ixy="0.0"  ixz="0.0"
+                 iyy="0.0"  iyz="0.0"
+                 izz="0.0" />
       </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -76,11 +76,11 @@
     <link name="${name}_ir_link">
       <!-- This link is the reference for the IR sensor in Gazebo, so it has inertia properties -->
       <inertial>
-        <mass value="0.1" />
+        <mass value="0.01" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <inertia ixx="0.01"  ixy="0.0"  ixz="0.0"
-                 iyy="0.01"  iyz="0.0"
-                 izz="0.01" />
+        <inertia ixx="0.0"  ixy="0.0"  ixz="0.0"
+                 iyy="0.0"  iyz="0.0"
+                 izz="0.0" />
       </inertial>
     </link>
     <!-- Xtion IR sensor frame -->
@@ -89,7 +89,15 @@
       <parent link="${name}_ir_link"/>
       <child link="${name}_ir_optical_frame"/>
     </joint>
-    <link name="${name}_ir_optical_frame"/>
+    <link name="${name}_ir_optical_frame">
+      <inertial>
+        <mass value="0.01" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0"  ixy="0.0"  ixz="0.0"
+                 iyy="0.0"  iyz="0.0"
+                 izz="0.0" />
+      </inertial>
+    </link>
     <!-- OpenNI IR sensor Gazebo extensions -->
     <xacro:openni_ir_gazebo_v0 link_name="${name}_ir_link" frame_name="${name}_ir_optical_frame" camera_name="${name}" />
 
@@ -103,11 +111,11 @@
     <link name="${name}_rgb_link" >
       <!-- This link is the reference for the RGB sensor in Gazebo, so it has inertia properties -->
       <inertial>
-        <mass value="0.1" />
+        <mass value="0.01" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <inertia ixx="0.01"  ixy="0.0"  ixz="0.0"
-                 iyy="0.01"  iyz="0.0"
-                 izz="0.01" />
+        <inertia ixx="0.0"  ixy="0.0"  ixz="0.0"
+                 iyy="0.0"  iyz="0.0"
+                 izz="0.0" />
       </inertial>
     </link>
     <!-- Xtion RGB sensor frame -->
@@ -116,7 +124,15 @@
       <parent link="${name}_rgb_link"/>
       <child link="${name}_rgb_optical_frame"/>
     </joint>
-    <link name="${name}_rgb_optical_frame"/>
+    <link name="${name}_rgb_optical_frame">
+       <inertial>
+        <mass value="0.01" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0"  ixy="0.0"  ixz="0.0"
+                 iyy="0.0"  iyz="0.0"
+                 izz="0.0" />
+      </inertial>
+    </link>
     <!-- OpenNI RGB sensor Gazebo extensions -->
     <xacro:openni_rgb_gazebo_v0 link_name="${name}_rgb_link" frame_name="${name}_rgb_optical_frame" camera_name="${name}" />
 
