@@ -198,6 +198,10 @@
 
     <!-- Middle finger -->
     <xacro:reem_finger hand_name="${name}" hand_side="${side}" hand_reflect="${reflect}" finger_name="middle" finger_reflect="-1"/>
+
+    <!-- grasping hack -->
+    <xacro:hand_grasping_hack side="${side}" />
+
   </xacro:macro>
 
 </robot>
