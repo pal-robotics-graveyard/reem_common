@@ -188,6 +188,29 @@
       </collision>
     </link>
 
+   <!-- Temporary visual for 10mm thumb offset -->
+   <!-- (there is no collision geometry, but you must still disable collision checking for this link) -->
+    <joint name="${name}_${side}_thumb_extension_joint" type="fixed">
+      <parent link="${name}_${side}_thumb_link" />
+      <child link="${name}_${side}_thumb_extension_link" />
+      <origin xyz="-0.014 -0.002 ${reflect*0.008}" rpy="0 0 0" /> <!-- centered in middle of the gap, 8mm back, 2mm down -->
+      <axis xyz="0 0 1" />
+    </joint>
+    <link name="${name}_${side}_thumb_extension_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> 
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.012 0.015 0.015"/> <!-- visual is 12mm long and 16mm square -->
+        </geometry>
+        <material name="White" />
+      </visual>
+    </link>
+
     <xacro:hand_gazebo name="${name}_${side}_thumb"/>
     <xacro:hand_simple_transmission name="${name}_${side}_thumb" reduction="168" />
 
