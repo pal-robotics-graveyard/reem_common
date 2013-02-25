@@ -159,7 +159,8 @@
     <joint name="${name}_${side}_thumb_joint" type="revolute">
       <parent link="${name}_${side}_palm_link" />
       <child link="${name}_${side}_thumb_link" />
-      <origin xyz="0.03649 ${reflect * 0.008}  0.02" rpy="${(90.0 + reflect * 90.0) * deg_to_rad} ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
+      <!-- added 10mm offset along y-axis -->
+      <origin xyz="0.03649 ${reflect*0.008 + reflect*0.010}  0.02" rpy="${(90.0 + reflect * 90.0) * deg_to_rad} ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
       <axis xyz="0 0 1" />
 <!--       <limit lower="${0.0 * deg_to_rad}" upper="${92.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" /> -->
       <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" /> <!--TODO: Restore!-->
