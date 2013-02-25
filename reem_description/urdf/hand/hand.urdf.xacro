@@ -57,10 +57,8 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_2_link" />
       <origin xyz="0.00357 -0.04084 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-<!--       <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" /> --> <!--TODO: Restore!-->
-      <limit lower="${0.0 * deg_to_rad}" upper="${1.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
-      <mimic joint="${hand_name}_${hand_side}_${finger_name}_1_joint" multiplier="1" offset="0"/>
     </joint>
 
     <link name="${hand_name}_${hand_side}_${finger_name}_2_link">
@@ -89,10 +87,9 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_3_link" />
       <origin xyz="0.00572 -0.0269 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <!--<limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />--> <!--TODO: Restore!-->
+      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <limit lower="${0.0 * deg_to_rad}" upper="${1.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
-      <mimic joint="${hand_name}_${hand_side}_${finger_name}_2_joint" multiplier="1" offset="0"/>
     </joint>
 
     <link name="${hand_name}_${hand_side}_${finger_name}_3_link">
