@@ -58,9 +58,9 @@
         </material>
       </visual>
       <collision>
-        <origin xyz="-0.02 0.0025 0" rpy="0 0 0"/> <!--TODO: Tune x coordinate. In Gazebo 1.0.2 collision geom conflicts with RGBD sensor, WTF?!-->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="0.04 0.185 0.03"/>
+          <mesh filename="package://reem_description/meshes/sensors/xtion_pro_live/xtion_pro_live_collision.stl" />
         </geometry>
       </collision>
     </link>
