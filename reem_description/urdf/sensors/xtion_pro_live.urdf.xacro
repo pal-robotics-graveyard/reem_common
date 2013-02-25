@@ -14,12 +14,10 @@
     - TF frames
     - loads Gazebo plugin
 
-    Note: There is a bug that Gazebo in ROS Fuerte ignores the roll/pitch/yaw in the visual tag,
-          therefore it needs to be in a separate link, with the orientation specified at the joint.
 
-    ToDo: Fix visual mesh, re-scale it, & the origin is not centered along the frontal axis.
-          Can simplify collision mesh.
-          Rotate origin in mesh, to match the orientation of the base link and bypass the bug.
+    Note: There is a bug in ROS Fuerte Gazebo that mis-handles the origin tag for any visual or collision
+          geometry. The origin must be zero.
+          To specify the geometry, use a mesh with an origin that matches the joint, or use a separate link.
 
 -->
 <robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
@@ -33,7 +31,7 @@
   <property name="M_PI" value="3.1415926535897931" />
 
   <!-- Macro -->
-  <xacro:macro name="xtion_pro_live" params="name parent *origin *calibration_origin">
+  <xacro:macro name="xtion_pro_live" params="name namespace parent *origin *calibration_origin">
     <!-- base link -->
     <joint name="${name}_joint" type="fixed">
       <insert_block name="origin" />
@@ -99,7 +97,7 @@
       </inertial>
     </link>
     <!-- OpenNI IR sensor Gazebo extensions -->
-    <xacro:openni_ir_gazebo_v0 link_name="${name}_ir_link" frame_name="${name}_ir_optical_frame" camera_name="${name}" />
+    <xacro:openni_ir_gazebo_v0 link_name="${name}_ir_link" frame_name="${name}_ir_optical_frame" camera_name="${name}" topic_namespace="${namespace}" />
 
     <!-- Xtion RGB sensor physical attachment -->
     <joint name="${name}_rgb_joint" type="fixed">
@@ -134,7 +132,7 @@
       </inertial>
     </link>
     <!-- OpenNI RGB sensor Gazebo extensions -->
-    <xacro:openni_rgb_gazebo_v0 link_name="${name}_rgb_link" frame_name="${name}_rgb_optical_frame" camera_name="${name}" />
+    <xacro:openni_rgb_gazebo_v0 link_name="${name}_rgb_link" frame_name="${name}_rgb_optical_frame" camera_name="${name}" topic_namespace="${namespace}" />
 
   </xacro:macro>
 

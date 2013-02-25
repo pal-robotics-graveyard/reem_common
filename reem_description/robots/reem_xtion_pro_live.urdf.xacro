@@ -20,15 +20,16 @@
 
   <!-- Head-mounted ASUS Xtion Pro Live -->
   <include filename="$(find reem_description)/urdf/sensors/xtion_pro_live.urdf.xacro" />
-  <xacro:xtion_pro_live parent="head_2_link" name="head_mount_xtion" > <!-- name is appended to create link and topic names -->
-     <origin xyz="0.100 -0.252 0.0" rpy="${M_PI/2} 0.0 1.0" /> <!-- 0.252   = height above neck joint
-                                                                        1.0 = pitch angle downwards   -->
-     <origin xyz="${cal_head_mount_xtion_x}
-                  ${cal_head_mount_xtion_y}
-                  ${cal_head_mount_xtion_z}"
-             rpy="${-M_PI/2+cal_head_mount_xtion_roll}
-                  ${0.0+cal_head_mount_xtion_pitch}
-                  ${-M_PI/2+cal_head_mount_xtion_yaw}" />
+  <xacro:xtion_pro_live parent="head_2_link" name="head_mount_xtion" namespace="head_mount_xtion" > <!-- 'name' is appended to create link/frame/camera names -->
+                                                                                                    <!-- 'namespace' is the prefix for the output topics -->
+     <origin xyz="0.100 -0.252 0.0" rpy="${M_PI/2} 0.0 1.0" /> <!--  0.252 = height above neck joint
+                                                                       1.0 = pitch angle downwards   -->
+     <calibration_origin xyz="${cal_head_mount_xtion_x}
+                              ${cal_head_mount_xtion_y}
+                              ${cal_head_mount_xtion_z}"
+                         rpy="${-M_PI/2+cal_head_mount_xtion_roll}
+                              ${0.0+cal_head_mount_xtion_pitch}
+                              ${-M_PI/2+cal_head_mount_xtion_yaw}" />
   </xacro:xtion_pro_live>
 
 </robot>
