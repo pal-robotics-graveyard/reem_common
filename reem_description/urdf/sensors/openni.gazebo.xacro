@@ -19,7 +19,7 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="openni_ir_gazebo_v0" params="link_name frame_name camera_name">
+  <xacro:macro name="openni_ir_gazebo_v0" params="link_name frame_name camera_name topic_namespace">
     <gazebo reference="${link_name}">
       <sensor:camera name="${name}_ir_sensor">
         <imageFormat>L8</imageFormat>
@@ -33,11 +33,11 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>1.0</updateRate>
           <cameraName>${camera_name}_ir</cameraName>
-          <imageTopicName>/${camera_name}/depth/image_raw</imageTopicName>
-          <cameraInfoTopicName>/${camera_name}/depth/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>/${camera_name}/depth/image_raw</depthImageTopicName>
-          <depthImageInfoTopicName>/${camera_name}/depth/camera_info</depthImageInfoTopicName>
-          <pointCloudTopicName>/${camera_name}/depth/points</pointCloudTopicName>
+          <imageTopicName>/${topic_namespace}/depth/image_raw</imageTopicName>
+          <cameraInfoTopicName>/${topic_namespace}/depth/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/${topic_namespace}/depth/image_raw</depthImageTopicName>
+          <depthImageInfoTopicName>/${topic_namespace}/depth/camera_info</depthImageInfoTopicName>
+          <pointCloudTopicName>/${topic_namespace}/depth/points</pointCloudTopicName>
           <frameName>${frame_name}</frameName>
           <pointCloudCutoff>0.5</pointCloudCutoff>
           <distortionK1>0.00000001</distortionK1>
@@ -50,7 +50,7 @@
     </gazebo>
   </xacro:macro>
 
-  <xacro:macro name="openni_rgb_gazebo_v0" params="link_name frame_name camera_name">
+  <xacro:macro name="openni_rgb_gazebo_v0" params="link_name frame_name camera_name topic_namespace">
     <gazebo reference="${link_name}">
       <sensor:camera name="${name}_rgb_sensor">
         <imageFormat>R8G8B8</imageFormat>
@@ -64,9 +64,9 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>1.0</updateRate>
           <cameraName>${camera_name}_rgb</cameraName>
-          <imageTopicName>/${camera_name}/rgb/image_raw</imageTopicName>
-          <cameraInfoTopicName>/${camera_name}/rgb/camera_info</cameraInfoTopicName>
-          <pointCloudTopicName>/${camera_name}/depth_registered/points</pointCloudTopicName>
+          <imageTopicName>/${topic_namespace}/rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>/${topic_namespace}/rgb/camera_info</cameraInfoTopicName>
+          <pointCloudTopicName>/${topic_namespace}/depth_registered/points</pointCloudTopicName>
           <frameName>${frame_name}</frameName>
           <pointCloudCutoff>0.5</pointCloudCutoff>
           <distortionK1>0.00000001</distortionK1>

@@ -20,9 +20,13 @@
 
   <!-- Head-mounted ASUS Xtion Pro Live -->
   <include filename="$(find reem_description)/urdf/sensors/xtion_pro_live.urdf.xacro" />
-  <xacro:xtion_pro_live parent="head_2_link" name="head_mount_xtion" > <!-- name is appended to create link and topic names -->
-     <origin xyz="0.056 -0.252 0.0" rpy="${M_PI/2} 0.0 0.34906" /> <!-- 0.252   = height above neck joint
-                                                                        0.34906 = pitch angle downwards   -->
+  <xacro:xtion_pro_live parent="head_2_link" name="head_mount_xtion" namespace="head_mount_xtion" > 
+                                                                                                    <!-- 'name' is appended to create link/frame/camera names -->
+                                                                                                    <!-- 'namespace' is the prefix for the output topics -->
+     <!-- this block is the "origin" param -->
+     <origin xyz="0.100 -0.252 0.0" rpy="${M_PI/2} 0.0 1.0" /> <!--  0.252 = height above neck joint
+                                                                       1.0 = pitch angle downwards   -->
+     <!-- this block is the "calibration_origin" param -->
      <origin xyz="${cal_head_mount_xtion_x}
                   ${cal_head_mount_xtion_y}
                   ${cal_head_mount_xtion_z}"

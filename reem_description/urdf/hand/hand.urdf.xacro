@@ -57,10 +57,8 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_2_link" />
       <origin xyz="0.00357 -0.04084 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-<!--       <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" /> --> <!--TODO: Restore!-->
-      <limit lower="${0.0 * deg_to_rad}" upper="${1.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
-      <mimic joint="${hand_name}_${hand_side}_${finger_name}_1_joint" multiplier="1" offset="0"/>
     </joint>
 
     <link name="${hand_name}_${hand_side}_${finger_name}_2_link">
@@ -89,10 +87,8 @@
       <child link="${hand_name}_${hand_side}_${finger_name}_3_link" />
       <origin xyz="0.00572 -0.0269 0" rpy="0 0 0" />
       <axis xyz="0 0 1" />
-      <!--<limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />--> <!--TODO: Restore!-->
-      <limit lower="${0.0 * deg_to_rad}" upper="${1.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
+      <limit lower="${0.0 * deg_to_rad}" upper="${80.0 * deg_to_rad}" effort="1.0" velocity="${hand_max_vel}" />
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
-      <mimic joint="${hand_name}_${hand_side}_${finger_name}_2_joint" multiplier="1" offset="0"/>
     </joint>
 
     <link name="${hand_name}_${hand_side}_${finger_name}_3_link">
@@ -162,9 +158,9 @@
     <joint name="${name}_${side}_thumb_joint" type="revolute">
       <parent link="${name}_${side}_palm_link" />
       <child link="${name}_${side}_thumb_link" />
-      <origin xyz="0.03649 ${reflect * 0.008}  0.02" rpy="${(90.0 + reflect * 90.0) * deg_to_rad} ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
+      <!-- added 10mm offset along y-axis -->
+      <origin xyz="0.03649 ${reflect*0.008 + reflect*0.010}  0.02" rpy="${(90.0 + reflect * 90.0) * deg_to_rad} ${(90.0 + 13) * deg_to_rad} ${reflect * 13.0 * deg_to_rad}" />
       <axis xyz="0 0 1" />
-<!--       <limit lower="${0.0 * deg_to_rad}" upper="${92.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" /> -->
       <limit lower="${0.0 * deg_to_rad}" upper="${90.0 * deg_to_rad}" effort="2.0" velocity="${hand_max_vel}" /> <!--TODO: Restore!-->
       <dynamics friction="${hand_friction}" damping="${hand_damping}"/>
     </joint>
@@ -190,6 +186,29 @@
       </collision>
     </link>
 
+   <!-- Temporary visual for 10mm thumb offset -->
+   <!-- (there is no collision geometry, but you must still disable collision checking for this link) -->
+    <joint name="${name}_${side}_thumb_extension_joint" type="fixed">
+      <parent link="${name}_${side}_thumb_link" />
+      <child link="${name}_${side}_thumb_extension_link" />
+      <origin xyz="-0.014 -0.002 ${reflect*0.008}" rpy="0 0 0" /> <!-- centered in middle of the gap, 8mm back, 2mm down -->
+      <axis xyz="0 0 1" />
+    </joint>
+    <link name="${name}_${side}_thumb_extension_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" /> 
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.012 0.015 0.015"/> <!-- visual is 12mm long and 16mm square -->
+        </geometry>
+        <material name="White" />
+      </visual>
+    </link>
+
     <xacro:hand_gazebo name="${name}_${side}_thumb"/>
     <xacro:hand_simple_transmission name="${name}_${side}_thumb" reduction="168" />
 
@@ -201,6 +220,23 @@
 
     <!-- grasping hack -->
     <xacro:hand_grasping_hack side="${side}" />
+
+    <!-- Grasping frame -->
+    <!-- grasp planner will approach along x-axis -->
+    <joint name="${name}_${side}_grasping_frame_joint" type="fixed">
+      <parent link="${name}_${side}_palm_link" />
+      <child link="${name}_${side}_grasping_frame" />
+      <origin xyz="0.0 ${reflect * 0.054} 0.018" rpy="0 0 0" />
+    </joint>
+    <link name="${name}_${side}_grasping_frame">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.01" />  <!-- matrix below must not be zero, or Gazebo won't load -->
+        <inertia ixx="0.1"  ixy="0.0"  ixz="0.0"
+                 iyy="0.1"  iyz="0.0"
+                 izz="0.1" />
+      </inertial>
+    </link>
 
   </xacro:macro>
 
