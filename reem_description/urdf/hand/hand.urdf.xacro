@@ -116,9 +116,6 @@
       </collision>
     </link>
 
-    <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_1"/>
-    <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_2"/>
-    <xacro:hand_gazebo              name="${hand_name}_${hand_side}_${finger_name}_3"/>
     <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_1" reduction="200"/>
     <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_2" reduction="200"/>
     <xacro:hand_simple_transmission name="${hand_name}_${hand_side}_${finger_name}_3" reduction="200"/>
@@ -190,7 +187,6 @@
       </collision>
     </link>
 
-    <xacro:hand_gazebo name="${name}_${side}_thumb"/>
     <xacro:hand_simple_transmission name="${name}_${side}_thumb" reduction="168" />
 
     <!-- Index finger -->

@@ -14,7 +14,6 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
-  <include filename="$(find reem_description)/urdf/torso/torso.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/torso/torso.transmission.xacro" />
 
   <xacro:property name="torso_max_vel"  value="1.0" />
@@ -53,7 +52,6 @@
     </joint>
 
     <!-- extensions -->
-    <xacro:reem_torso_1_gazebo />
     <xacro:reem_torso_1_transmission name="${name}" />
 
 
@@ -88,7 +86,7 @@
       <limit lower="${-15.0 * deg_to_rad}" upper="${45.0 * deg_to_rad}" effort="80" velocity="${torso_max_vel}" />
       <dynamics damping="10.0" friction="1.0"/> <!--NOTE: Joint can do 46.2, but set to higher value because of unmodeled springs-->
     </joint>
-    
+
     <!-- Torso Front Sonar Ring -->
    <!-- torso sonar left -->
    <xacro:range_reem name="${name}_sonar_14" parent="${name}_2" ros_topic="sonar_torso" update_rate="5" maxRange="0.7" minRange="0.005" fov="0.3491" radiation="ultrasound">
@@ -104,11 +102,9 @@
    <xacro:range_reem name="${name}_sonar_13" parent="${name}_2" ros_topic="sonar_torso" update_rate="5" maxRange="0.7" minRange="0.005" fov="0.3491" radiation="ultrasound">
       <origin xyz="-0.2 -0.149 0.0" rpy="0.0 ${180.0*deg_to_rad} 0.0" />
    </xacro:range_reem>
-   
 
 
     <!-- extensions -->
-    <xacro:reem_torso_2_gazebo />
     <xacro:reem_torso_2_transmission name="${name}" />
   </xacro:macro>
 

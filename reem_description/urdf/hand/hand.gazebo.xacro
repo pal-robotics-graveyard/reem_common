@@ -13,16 +13,8 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <xacro:macro name="hand_gazebo" params="name">
-    <gazebo reference="${name}_link">
-      <turnGravityOff>false</turnGravityOff>
-      <dampingFactor>0.025</dampingFactor>
-    </gazebo>
-    </xacro:macro>
-
     <xacro:macro name="hand_grasping_hack" params="side">
       <gazebo>
-      <!-- a formal implementation of grasp hack in gazebo with fixed joint reference: /opt/ros/fuerte/stacks/pr2_common/pr2_description/urdf/gripper_v0/gripper.gazebo.xacro -->
         <gripper name="${side}_grasp_hack">
           <grasp_check attach_steps="20" detach_steps="40" min_contact_count="2" />
           <gripper_link>hand_${side}_middle_1_link</gripper_link>

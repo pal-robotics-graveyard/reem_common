@@ -16,12 +16,12 @@
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
   <include filename="$(find reem_description)/urdf/base/base.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/base/base.transmission.xacro" />
-  <include filename="$(find reem_description)/urdf/sensors/sick_laser_reem.urdf.xacro" />
-  <include filename="$(find reem_description)/urdf/sensors/hokuyo_laser_reem.urdf.xacro" />
+<!--   <include filename="$(find reem_description)/urdf/sensors/sick_laser_reem.urdf.xacro" /> -->
+<!--   <include filename="$(find reem_description)/urdf/sensors/hokuyo_laser_reem.urdf.xacro" /> -->
   <!--<include filename="$(find reem_description)/urdf/sensors/microinfinity_xa3300.urdf.xacro" /> -->
-  <include filename="$(find reem_description)/urdf/sensors/microstrain_3dmgx2_imu.urdf.xacro" />
-  <include filename="$(find reem_description)/urdf/sensors/range.urdf.xacro" />
-  <include filename="$(find reem_description)/urdf/sensors/bumper.urdf.xacro" />
+<!--   <include filename="$(find reem_description)/urdf/sensors/microstrain_3dmgx2_imu.urdf.xacro" /> -->
+<!--   <include filename="$(find reem_description)/urdf/sensors/range.urdf.xacro" /> -->
+<!--   <include filename="$(find reem_description)/urdf/sensors/bumper.urdf.xacro" /> -->
   
   
   
@@ -73,7 +73,6 @@
     </joint>
 
     <!-- extensions -->
-    <xacro:reem_wheel_gazebo side="${side}" />
     <xacro:reem_wheel_transmission side="${side}" />
 
   </xacro:macro>
@@ -145,7 +144,6 @@
     </joint>
 
     <!-- extensions -->
-    <xacro:reem_caster_gazebo side="${side}"/>
     <xacro:reem_caster_simple_transmission name="caster" side="${side}" number="1" reduction="1" />
     <xacro:reem_caster_simple_transmission name="caster" side="${side}" number="2" reduction="1" />
   </xacro:macro>
@@ -383,7 +381,6 @@
     <xacro:reem_caster side="left"  reflect="-1.0" />
 
     <!-- extensions -->
-    <xacro:reem_base_gazebo />
     <xacro:reem_base_controllers />
 
   </xacro:macro>

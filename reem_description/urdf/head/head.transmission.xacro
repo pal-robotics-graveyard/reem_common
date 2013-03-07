@@ -13,19 +13,11 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="reem_head_1_transmission" params="name">
+  <xacro:macro name="head_transmission" params="name reduction">
     <transmission type="pr2_mechanism_model/SimpleTransmission" name="${name}_trans">
       <actuator name="${name}_motor" />
       <joint name="${name}_joint" />
-      <mechanicalReduction>144.0</mechanicalReduction>
-    </transmission>
-  </xacro:macro>
-
-  <xacro:macro name="reem_head_2_transmission" params="name">
-    <transmission type="pr2_mechanism_model/SimpleTransmission" name="${name}_trans">
-      <actuator name="${name}_motor" />
-      <joint name="${name}_joint" />
-      <mechanicalReduction>320.32</mechanicalReduction>
+      <mechanicalReduction>${reduction}</mechanicalReduction>
     </transmission>
   </xacro:macro>
 

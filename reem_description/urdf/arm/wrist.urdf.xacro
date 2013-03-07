@@ -23,7 +23,6 @@
 
   <!--File includes-->
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
-  <include filename="$(find reem_description)/urdf/arm/wrist.gazebo.xacro" />
   <include filename="$(find reem_description)/urdf/arm/wrist.transmission.xacro" />
 
   <xacro:macro name="reem_wrist" params="name parent side reflect">
@@ -129,10 +128,6 @@
     </joint>
 
     <!-- extensions -->
-    <xacro:reem_wrist_gazebo name="${name}" side="${side}" number="5" />
-    <xacro:reem_wrist_gazebo name="${name}" side="${side}" number="6" />
-    <xacro:reem_wrist_gazebo name="${name}" side="${side}" number="7" />
-
     <xacro:reem_wrist_simple_transmission name="${name}" side="${side}" number="5" reduction="${wrist_reduction}" />
     <xacro:reem_wrist_simple_transmission name="${name}" side="${side}" number="6" reduction="${wrist_reduction}" />
     <xacro:reem_wrist_simple_transmission name="${name}" side="${side}" number="7" reduction="${wrist_reduction}" />

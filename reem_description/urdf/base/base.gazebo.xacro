@@ -13,34 +13,9 @@
         xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
         xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
-  <xacro:macro name="reem_wheel_gazebo" params="side">
-    <gazebo reference="wheel_${side}_link">
-      <material>reem/DarkGrey</material>
-      <turnGravityOff>false</turnGravityOff>
-    </gazebo>
-  </xacro:macro>
-
-  <xacro:macro name="reem_caster_gazebo" params="side">
-    <gazebo reference="caster_${side}_1_link">
-      <material>reem/LightGrey</material>
-      <turnGravityOff>false</turnGravityOff>
-    </gazebo>
-    <gazebo reference="caster_${side}_2_link">
-      <material>reem/DarkGrey</material>
-      <turnGravityOff>false</turnGravityOff>
-    </gazebo>
-  </xacro:macro>
-
-  <xacro:macro name="reem_base_gazebo">
-    <gazebo reference="base_link">
-      <turnGravityOff>false</turnGravityOff>
-    </gazebo>
-  </xacro:macro>
-
- 
- <xacro:macro name="reem_base_controllers">
+  <xacro:macro name="reem_base_controllers">
         <!-- CONTROLLERS -->
-        <gazebo>
+<!--        <gazebo>
             <canonicalBody>base_footprint</canonicalBody>
             <controller:diffdrive_plugin name="reem_differential_drive_controller" plugin="libreem_diffdrive_plugin.so">
                 <alwaysOn>true</alwaysOn>
@@ -55,7 +30,7 @@
                 <robotNamespace>/</robotNamespace>
                 <topicName>/cmd_vel</topicName>
             </controller:diffdrive_plugin>
-        </gazebo>
+        </gazebo>-->
   </xacro:macro>
 
 </robot>
