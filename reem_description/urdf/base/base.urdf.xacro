@@ -246,7 +246,7 @@
 
    <!-- base laser -->
     <xacro:sick_laser_reem name="${name}_laser" parent="${name}" ros_topic="/LMS1xx/LAS_00" update_rate="25" min_angle="-84" max_angle="84" >
-      <origin xyz="${base_laser_x} ${base_laser_y} ${base_laser_z}" rpy="0 0 0" />
+      <origin xyz="${base_laser_x} ${base_laser_y} ${base_laser_z}" rpy="${180.0 * deg_to_rad} 0 0" />
     </xacro:sick_laser_reem>
 
     <!-- torso laser -->
