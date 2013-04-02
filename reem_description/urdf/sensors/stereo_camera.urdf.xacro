@@ -16,9 +16,6 @@
   <!-- stereo camera macro uses stingrayf033c_camera macros -->
   <include filename="$(find reem_description)/urdf/sensors/stingrayf033c_camera.urdf.xacro" />
 
-  <include filename="$(find reem_description)/urdf/sensors/stereo_camera.gazebo.xacro" />
-
-
   <property name="stereo_dx" value="0.00" />
   <property name="stereo_dy" value="-0.073" /> <!-- stereo baseline according to stereo_link which has X pointing forward, Y leftwards and Z upwards (required by Gazebo for a camera sensor) --> 
   <property name="stereo_dz" value="0.00" />   
@@ -49,7 +46,6 @@
         <geometry>
           <box size="0.001 0.001 0.001" />
         </geometry>
-        
         <material name="Blue" />
       </visual>
 
@@ -96,12 +92,6 @@
                             image_width="${image_width}" image_height="${image_height}">
       <origin xyz="${stereo_dx} ${stereo_dy} ${stereo_dz}" rpy="${stereo_rx} ${stereo_ry} ${stereo_rz}" />
     </xacro:stingrayf033c_camera_v0>
-
-    <!-- extensions -->
-    <xacro:stereo_camera_gazebo_v0 name="${name}" 
-                                   focal_length_left="${focal_length_left}" hfov_left="${hfov_left}"
-                                   focal_length_right="${focal_length_right}" hfov_right="${hfov_right}"
-                                   image_width="${image_width}" image_height="${image_height}"/>
 
   </xacro:macro>
 </robot>

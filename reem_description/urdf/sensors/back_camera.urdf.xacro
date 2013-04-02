@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-  Copyright (c) 2011, PAL Robotics, S.L.
+  Copyright (c) 2013, PAL Robotics, S.L.
   All rights reserved.
 
   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
@@ -14,20 +14,11 @@
        xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- back camera macro uses stingrayf033c_camera macros -->
-  <include filename="$(find reem_description)/urdf/sensors/stingrayf033c_camera.urdf.xacro" />
-
-  <include filename="$(find reem_description)/urdf/sensors/back_camera.gazebo.xacro" />
-
-
-  <property name="back_dx" value="0.00" />
-  <property name="back_dy" value="-0.073" /> <!-- back baseline according to back_link which has X pointing forward, Y leftwards and Z upwards (required by Gazebo for a camera sensor) --> 
-  <property name="back_dz" value="0.00" />   
-  <property name="back_rx" value="0.00" />
-  <property name="back_ry" value="0.00" />
-  <property name="back_rz" value="0.00" />
+  <include filename="$(find reem_description)/urdf/sensors/mvbluefox_back_camera.gazebo.xacro" />
+  <include filename="$(find reem_description)/urdf/sensors/mvbluefox_camera.urdf.xacro" />
 
   <!-- this macro is used for creating wide and narrow double back camera links -->
-  <xacro:macro name="back_camera_v0" params="name parent focal_length hfov image_format image_width image_height *origin">
+  <xacro:macro name="reem_back_camera" params="name parent focal_length hfov image_format image_width image_height *origin">
 
     <joint name="${name}_frame_joint" type="fixed">
       <insert_block name="origin" />
@@ -37,7 +28,7 @@
     <!-- camera link is at center of the optical frame, but in x-forward, z-upwards and y-leftwards notation (required by gazebo to simulate a camera) -->
     <link name="${name}_link">      
       <inertial>
-        <mass value="0.1" />
+        <mass value="0.05" />
         <origin xyz="0 0 0" rpy="0 0 0" />
         <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01"  iyz="0"  izz="0.01" /> <!-- this inertia is made up for now. -->
       </inertial>
@@ -48,7 +39,6 @@
           <box size="0.001 0.001 0.001" />
         </geometry>
         
-        <material name="Blue" />
       </visual>
 
       <collision>
@@ -67,19 +57,22 @@
       <child link="${name}_optical_frame"/>
     </joint>
     <!-- optical frame for the back camera, with z-forward notation, this is the frame back camera images users should refer to -->
-    <link name="${name}_optical_frame" type="camera"/>
+    <link name="${name}_optical_frame" type="camera">
+      <inertial>
+        <mass value="0.05" />
+        <inertia ixx="0"  ixy="0"  ixz="0" iyy="0"  iyz="0"  izz="0" />
+      </inertial>
+    </link>
 
-    <!-- camera -->
-    <xacro:stingrayf033c_camera_v0 name="${name}_gazebo_back_camera" image_format="${image_format}" image_topic_name="${name}/left/image"
-                            camera_info_topic_name="${name}/left/camera_info" parent="${name}_link"
-                            hfov="${hfov}" focal_length="${focal_length}"
-                            frame_id="${name}_optical_frame" hack_baseline="0"
-                            image_width="${image_width}" image_height="${image_height}">
+    <!-- back camera -->
+    <xacro:mvbluefox_camera name="${name}_gazebo_back_camera" parent="${name}_link">
       <origin xyz="0 0 0" rpy="0.0 0.0 0.0" />
-    </xacro:stingrayf033c_camera_v0>
+    </xacro:mvbluefox_camera>
 
-    <!-- extensions -->
-    <xacro:back_camera_gazebo_v0 name="${name}" focal_length="${focal_length}" hfov="${hfov}"
+    <!-- Back camera Gazebo simulation -->
+    <xacro:mvbluefox_back_camera_gazebo name="${name}" image_format="${image_format}" 
+                                   hfov="${hfov}" focal_length="${focal_length}"                                   
+                                   frame_id="${name}_optical_frame"
                                    image_width="${image_width}" image_height="${image_height}"/>
 
   </xacro:macro>

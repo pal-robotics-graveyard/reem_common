@@ -17,27 +17,41 @@
   <xacro:macro name="range_reem_gazebo" params="name ros_topic update_rate maxRange minRange fov radiation" >
        
     <gazebo reference="${name}_link">
-      <sensor:ray name="${name}">
-        <rayCount>5</rayCount>
-        <rangeCount>5</rangeCount>
-        <verticalRayCount>5</verticalRayCount>
-        <verticalRangeCount>5</verticalRangeCount>
-        <minAngle>-${fov/2}</minAngle>
-        <verticalMinAngle>-${fov/2}</verticalMinAngle>
-        <maxAngle>${fov/2}</maxAngle>
-        <verticalMaxAngle>${fov/2}</verticalMaxAngle>
-        <minRange>${minRange}</minRange>
-        <maxRange>${maxRange}</maxRange>
-        <resRange>0.01</resRange>
-        <updateRate>${update_rate}</updateRate>
-        <controller:gazebo_ros_sonar name="gazebo_ros_${name}_controller" plugin="libgazebo_ros_sonar.so">
+      <sensor type="ray" name="${name}">
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>${update_rate}</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>5</samples>
+              <resolution>1</resolution>
+              <min_angle>-${fov/2}</min_angle>
+              <max_angle>${fov/2}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>5</samples>
+              <resolution>1</resolution>
+              <min_angle>-${fov/2}</min_angle>
+              <max_angle>${fov/2}</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${minRange}</min>
+            <max>${maxRange}</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
           <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>${update_rate}</updateRate>
           <topicName>${ros_topic}</topicName>
-          <frameId>${name}_link</frameId>
+          <frameName>${name}_link</frameName>
           <fov>${fov}</fov>
           <radiation>${radiation}</radiation>
-        </controller:gazebo_ros_sonar>
-      </sensor:ray>
+        </plugin>
+      </sensor>
     </gazebo>  
   </xacro:macro>
 

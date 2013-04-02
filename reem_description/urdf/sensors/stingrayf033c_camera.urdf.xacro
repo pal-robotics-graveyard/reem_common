@@ -36,10 +36,11 @@
       </inertial>
 
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="-0.01 0 0" rpy="0 ${deg_to_rad * 90} 0" />
         <geometry>
-          <box size="0.01 0.01 0.01" />
+          <cylinder radius="0.01" length="0.02" />
         </geometry>
+        <material name="Blue" />
       </visual>
 
       <!--
