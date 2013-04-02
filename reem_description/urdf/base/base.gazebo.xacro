@@ -14,23 +14,15 @@
         xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
   <xacro:macro name="reem_base_controllers">
-        <!-- CONTROLLERS -->
-<!--        <gazebo>
-            <canonicalBody>base_footprint</canonicalBody>
-            <controller:diffdrive_plugin name="reem_differential_drive_controller" plugin="libreem_diffdrive_plugin.so">
-                <alwaysOn>true</alwaysOn>
-                <update>100</update>
-                <updateRate>100.0</updateRate>
-                <leftJoint>wheel_right_joint</leftJoint>
-                <rightJoint>wheel_left_joint</rightJoint>
-                <wheelSeparation>${dist_between_wheels}</wheelSeparation>
-                <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
-                <torque>15</torque>
-                <interface:position name="position_iface_0"/>
-                <robotNamespace>/</robotNamespace>
-                <topicName>/cmd_vel</topicName>
-            </controller:diffdrive_plugin>
-        </gazebo>-->
+
+    <gazebo>
+      <plugin filename="libgazebo_pal_ros_diffdrive.so" name="pal_gazebo_diff_drive">
+        <left_joint>wheel_left_joint</left_joint>
+        <right_joint>wheel_right_joint</right_joint>
+        <torque>15</torque>
+      </plugin>
+    </gazebo>
+
   </xacro:macro>
 
 </robot>
