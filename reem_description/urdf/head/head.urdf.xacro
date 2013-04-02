@@ -15,6 +15,7 @@
 
   <include filename="$(find reem_description)/urdf/deg_to_rad.xacro" />
   <include filename="$(find reem_description)/urdf/head/head.transmission.xacro" />
+  <include filename="$(find reem_description)/urdf/sensors/range.urdf.xacro" />
 
   <xacro:property name="head_friction" value="1.0" />
   <xacro:property name="head_damping"  value="0.5" />
