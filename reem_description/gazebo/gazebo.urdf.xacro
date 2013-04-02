@@ -14,6 +14,11 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
   <gazebo>
+    <plugin filename="libPalModelPlugin.so" name="pal_model_plugin">
+      <plugin_params>
+      <pin_link>torso_2_link</pin_link>
+      </plugin_params>
+    </plugin>
     <plugin filename="libgazebo_ros_controller_manager.so" name="gazebo_ros_controller_manager">
       <alwaysOn>true</alwaysOn>
       <updateRate>1000.0</updateRate>
