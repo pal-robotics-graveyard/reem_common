@@ -33,7 +33,7 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>1.0</updateRate>
           <cameraName>${camera_name}_ir</cameraName>
-          <imageTopicName>/${camera_name}/depth/image_raw</imageTopicName>
+          <imageTopicName>/${camera_name}/ir/image_raw</imageTopicName>
           <cameraInfoTopicName>/${camera_name}/depth/camera_info</cameraInfoTopicName>
           <depthImageTopicName>/${camera_name}/depth/image_raw</depthImageTopicName>
           <depthImageInfoTopicName>/${camera_name}/depth/camera_info</depthImageInfoTopicName>
