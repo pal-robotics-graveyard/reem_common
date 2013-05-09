@@ -19,9 +19,11 @@
       <pin_link>torso_2_link</pin_link>
       </plugin_params>
     </plugin>
-    <plugin filename="libgazebo_ros_controller_manager.so" name="gazebo_ros_controller_manager">
-      <alwaysOn>true</alwaysOn>
-      <updateRate>1000.0</updateRate>
+
+    <plugin filename="libros_control_gazebo_plugin.so" name="ros_control">
+      <ns>reem</ns>
+      <robotSimType>reem_hardware_gazebo/ReemHardwareGazebo</robotSimType>
+      <controlPeriod>0.001</controlPeriod>
     </plugin>
   </gazebo>
 
