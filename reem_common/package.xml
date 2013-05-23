@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>reem_common</name>
+  <version>0.0.1</version>
+  <description>Catkin metapackage for the reem_common stack</description>
+  <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodríguez Tsouroukdissian</maintainer>
+  <license>TODO</license>
+  <url type="website">http://ros.org/wiki/reem_common</url>
+  <author email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>reem_machine</run_depend>
+  <run_depend>reem_description</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
