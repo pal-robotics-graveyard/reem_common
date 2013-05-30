@@ -21,7 +21,7 @@
     </plugin>
 
     <plugin filename="libros_control_gazebo_plugin.so" name="ros_control">
-      <ns>reem</ns>
+      <ns></ns>
       <robotSimType>reem_hardware_gazebo/ReemHardwareGazebo</robotSimType>
       <controlPeriod>0.001</controlPeriod>
     </plugin>
