@@ -29,6 +29,8 @@
   <property name="dist_between_wheels" value="0.492" />
   <property name="wheel_radius" value="0.125" />
   <property name="wheel_width" value="0.082" />
+  <property name="wheel_torque" value="5.0" />
+  <property name="wheel_velocity" value="1.5" /> <!-- m/s -->
 
  <!--caster characteristics-->
   <property name="dist_between_casters" value="0.300" />
@@ -70,6 +72,7 @@
       <child link="wheel_${side}_link" />
       <origin xyz="0 ${-dist_between_wheels / 2 * reflect} ${wheel_radius}" rpy="${-90.0 * deg_to_rad} 0 0" />
       <axis xyz="0 0 1" />
+      <limit effort="${wheel_torque}" velocity="${wheel_velocity / wheel_radius}"/>
     </joint>
 
     <!-- extensions -->

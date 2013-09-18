@@ -15,14 +15,6 @@
 
   <xacro:macro name="reem_base_controllers">
 
-    <gazebo>
-      <plugin filename="libgazebo_pal_ros_diffdrive.so" name="pal_gazebo_diff_drive">
-        <left_joint>wheel_left_joint</left_joint>
-        <right_joint>wheel_right_joint</right_joint>
-        <torque>15</torque>
-      </plugin>
-    </gazebo>
-
   </xacro:macro>
 
 </robot>
